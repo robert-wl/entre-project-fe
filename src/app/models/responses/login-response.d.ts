@@ -1,7 +1,6 @@
-import {User} from "next-auth";
-
+import { User } from "next-auth";
 
 export interface LoginResponse {
-    access_token: string;
-    user: Omit<User, "password">;
+  access_token: string;
+  user: Omit<User, "password">;
 }

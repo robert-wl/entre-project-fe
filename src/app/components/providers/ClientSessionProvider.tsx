@@ -5,18 +5,18 @@ import { Nullable } from "@/types/utils";
 import { Session } from "next-auth";
 
 interface Props {
-    children: ReactNode;
-    session?: Nullable<Session>;
+  children: ReactNode;
+  session?: Nullable<Session>;
 }
 
 export default function ClientSessionProvider({ children, session }: Props) {
-    return (
-        <>
-            <SessionProvider
-                session={session}
-                basePath="/api/auth">
-                {children}
-            </SessionProvider>
-        </>
-    );
+  return (
+    <>
+      <SessionProvider
+        session={session}
+        basePath="/api/auth">
+        {children}
+      </SessionProvider>
+    </>
+  );
 }
