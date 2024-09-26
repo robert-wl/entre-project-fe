@@ -2,6 +2,7 @@ import { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import { JWT } from "next-auth/jwt";
+import AuthService from "@/app/services/auth-service";
 
 export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
@@ -20,47 +21,17 @@ export const authOptions: NextAuthOptions = {
                 const email = credentials?.email;
                 const password = credentials?.password;
 
-                // const response = await BackendService.login(auth, password);
-                //
-                // if (response.error) {
-                //     console.warn("AUTH ERROR: " + response.error.message);
-                //     throw new Error("Error when validating credentials in backend");
-                // }
-                //
-                // const { body, headers } = response.content!;
-                //
-                // if (!body) {
-                //     console.warn("AUTH ERROR: Invalid Credentials!");
-                //     throw new Error("Invalid Credentials");
-                // }
-                //
-                // const cookie = extractCookie(headers);
-                // cookies().set(cookie);
-                //
-                // const userResponse = await BackendService.getCurrentBinusian();
-                //
-                // if (userResponse.error) {
-                //     console.warn("AUTH ERROR: " + userResponse.error.message);
-                //     throw new Error("Error when fetching user data");
-                // }
-                //
-                // if (!userResponse.content) {
-                //     console.warn("AUTH ERROR: No user data found!");
-                //     throw new Error("No user data found");
-                // }
-                //
-                // const userData = userResponse.content!;
+                if (!email || !password) {
+                    throw new Error("Email and password are required");
+                }
 
-                return null;
-                // return {
-                //     id: userData.BinusianId,
-                //     number: userData.BinusianNumber,
-                //     name: userData.Name,
-                //     email: userData.BinusEmail,
-                //     image: userData.PictureId,
-                //     role: userData.Role,
-                //     cookie: cookie.value,
-                // };
+                const { user, access_token } = await AuthService.login(email, password);
+
+                console.log("USERR", user)
+                return {
+                    ...user,
+                    token: access_token
+                };
             },
         }),
     ],
