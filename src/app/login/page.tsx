@@ -31,7 +31,11 @@ const Login: React.FC = () => {
   return (
     <>
       <div className="w-full flex flex-col items-center">
-        <img src="logo-cropped.png" className="w-10/12" alt="" />
+        <img
+          src="logo-cropped.png"
+          className="w-10/12"
+          alt=""
+        />
         <p className="font-semibold text-lg">Sign in to continue</p>
       </div>
       <form
@@ -55,7 +59,7 @@ const Login: React.FC = () => {
           className="w-full py-6 rounded-3xl text-background font-bold">
           Sign In
         </Button>
-        <Link href={'/register'}>
+        <Link href={"/register"}>
           <p className="text-xs font-medium text-gray-400">
             Don't have an account?
             <span className="text-primary font-bold">Sign Up</span>
