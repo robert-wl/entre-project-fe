@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 import React from "react";
 
 const Register: React.FC = () => {
   return (
     <>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex flex-col items-center">
+        <img src="logo-cropped.png" className="w-10/12" alt="" />
         <p className="font-semibold text-lg">Sign up to start your journey</p>
       </div>
       <form
@@ -36,11 +38,13 @@ const Register: React.FC = () => {
           type="text"
           placeholder="Phone Number"
         />
-        <Button className="w-full py-6 rounded-3xl">Sign Up</Button>
-        <p className="text-xs font-medium text-gray-400">
-          Already have an account?
-          <span className="text-primary font-bold">Sign In</span>
-        </p>
+        <Button className="w-full py-6 rounded-3xl font-bold text-background">Sign Up</Button>
+        <Link href={'/login'}>
+          <p className="text-xs font-medium text-gray-400">
+            Already have an account?
+            <span className="text-primary font-bold">Sign In</span>
+          </p>
+        </Link>
       </form>
     </>
   );

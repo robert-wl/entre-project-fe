@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -29,7 +30,8 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex flex-col items-center">
+        <img src="logo-cropped.png" className="w-10/12" alt="" />
         <p className="font-semibold text-lg">Sign in to continue</p>
       </div>
       <form
@@ -50,13 +52,15 @@ const Login: React.FC = () => {
         <p className="w-full text-xs underline text-gray-400">Forgot Password?</p>
         <Button
           type="submit"
-          className="w-full py-6 rounded-3xl">
+          className="w-full py-6 rounded-3xl text-background font-bold">
           Sign In
         </Button>
-        <p className="text-xs font-medium text-gray-400">
-          Don't have an account?
-          <span className="text-primary font-bold">Sign Up</span>
-        </p>
+        <Link href={'/register'}>
+          <p className="text-xs font-medium text-gray-400">
+            Don't have an account?
+            <span className="text-primary font-bold">Sign Up</span>
+          </p>
+        </Link>
       </form>
     </>
   );
