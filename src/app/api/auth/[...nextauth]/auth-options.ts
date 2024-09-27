@@ -1,7 +1,9 @@
 import { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import BackendService from "@/services/backend-service";
+import { extractCookie } from "@/utils/cookie-utils";
+import { cookies } from "next/headers";
 import { JWT } from "next-auth/jwt";
-import AuthService from "@/app/services/auth-service";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -13,38 +15,71 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
+        username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, _) {
-        const email = credentials?.email;
+        const username = credentials?.username;
         const password = credentials?.password;
 
-        if (!email || !password) {
-          throw new Error("Email and password are required");
+        const response = await BackendService.login(username, password);
+
+        if (response.error) {
+          console.warn("AUTH ERROR: " + response.error.message);
+          throw new Error("Error when validating credentials in backend");
         }
 
-        const { user, access_token } = await AuthService.login(email, password);
+        const { body, headers } = response.content!;
+
+        if (!body) {
+          console.warn("AUTH ERROR: Invalid Credentials!");
+          throw new Error("Invalid Credentials");
+        }
+
+        const cookie = extractCookie(headers);
+        cookies().set(cookie);
+
+        const userResponse = await BackendService.getCurrentBinusian();
+
+        if (userResponse.error) {
+          console.warn("AUTH ERROR: " + userResponse.error.message);
+          throw new Error("Error when fetching user data");
+        }
+
+        if (!userResponse.content) {
+          console.warn("AUTH ERROR: No user data found!");
+          throw new Error("No user data found");
+        }
+
+        const userData = userResponse.content!;
 
         return {
-          ...user,
-          token: access_token,
+          id: userData.BinusianId,
+          number: userData.BinusianNumber,
+          name: userData.Name,
+          email: userData.BinusEmail,
+          image: userData.PictureId,
+          role: userData.Role,
+          cookie: cookie.value,
         };
       },
     }),
   ],
   pages: {
-    signIn: "/auth",
-    error: "/auth",
-    signOut: "/auth",
-    verifyRequest: "/auth",
-    newUser: "/auth",
+    signIn: "/nar/auth",
+    error: "/nar/auth",
+    signOut: "/nar/auth",
+    verifyRequest: "/nar/auth",
+    newUser: "/nar/auth",
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.token = user.token;
-        token.expires = new Date(new Date().getTime() + 0.25 * 60 * 60 * 1000).toISOString();
+        token.role = user.role;
+        token.cookie = user.cookie;
+        token.expires = new Date(
+          new Date().getTime() + 0.25 * 60 * 60 * 1000
+        ).toISOString();
       }
 
       if (token.expires && new Date() > new Date(token.expires)) {
@@ -59,7 +94,8 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (session?.user) {
-        session.user.token = token?.token;
+        session.user.role = token?.role;
+        session.user.cookie = token?.cookie;
         session.user.expires = token?.expires;
       }
 
