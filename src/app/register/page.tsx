@@ -30,7 +30,6 @@ const Register: React.FC = () => {
   const router = useRouter();
 
   const registerUser = async (data: RegistrationForm) => {
-    console.log("REGISTERED");
     const response = await AuthService.register(data.name, data.email, data.password, data.phoneNumber);
 
     if (!response) return;
@@ -42,7 +41,7 @@ const Register: React.FC = () => {
     <>
       <div className="w-full flex flex-col items-center">
         <img
-          src="logo-cropped.png"
+          src="/logo-cropped.png"
           className="w-10/12"
           alt=""
         />
