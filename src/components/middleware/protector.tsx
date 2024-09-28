@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/auth-options";
 import { redirect } from "next/navigation";
+import { FC } from "react";
 
 interface IProtectOptions {
   authenticated?: boolean;
@@ -8,10 +9,9 @@ interface IProtectOptions {
   redirectUrl?: string;
 }
 
-export default function ServerProtector(
-  Component: (...arg0: any[]) => JSX.Element | Promise<JSX.Element>,
-  { authenticated = true, roles = [], redirectUrl = "/home" }: IProtectOptions,
-) {
+type ComponentType = ((...arg0: any[]) => JSX.Element | Promise<JSX.Element>) | FC<any>;
+
+export default function Protector(Component: ComponentType, { authenticated = true, roles = [], redirectUrl = "/home" }: IProtectOptions) {
   return async function WrappedComponent(props: any) {
     const session = await getServerSession(authOptions);
 

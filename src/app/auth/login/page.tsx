@@ -23,6 +23,7 @@ const Login: React.FC = () => {
       password: data.password,
     });
 
+    console.log(response);
     if (!response?.error) {
       router.push("/");
     }
@@ -32,7 +33,7 @@ const Login: React.FC = () => {
     <>
       <div className="w-full flex flex-col items-center">
         <img
-          src="logo-cropped.png"
+          src="/logo-cropped.png"
           className="w-10/12"
           alt=""
         />
