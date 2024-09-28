@@ -34,7 +34,7 @@ const Register: React.FC = () => {
 
     if (!response) return;
 
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   return (
@@ -85,7 +85,7 @@ const Register: React.FC = () => {
           className="w-full py-6 rounded-3xl font-bold text-background">
           Sign Up
         </Button>
-        <Link href={"/login"}>
+        <Link href={"/auth/login"}>
           <p className="text-xs font-medium text-gray-400">
             Already have an account?
             <span className="text-primary font-bold">Sign In</span>
