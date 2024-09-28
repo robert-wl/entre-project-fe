@@ -6,7 +6,7 @@ const Page: React.FC = () => {
   useLayoutEffect(() => {
     signOut({
       redirect: true,
-      callbackUrl: "/auth",
+      callbackUrl: "/login",
     }).then();
   }, []);
   return <></>;

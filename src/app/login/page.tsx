@@ -60,7 +60,7 @@ const Login: React.FC = () => {
           className="w-full py-6 rounded-3xl text-background font-bold">
           Sign In
         </Button>
-        <Link href={"/auth/register"}>
+        <Link href={"/register"}>
           <p className="text-xs font-medium text-gray-400">
             Don't have an account?
             <span className="text-primary font-bold">Sign Up</span>

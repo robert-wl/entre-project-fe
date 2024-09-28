@@ -11,12 +11,12 @@ interface IProtectOptions {
 
 type ComponentType = ((...arg0: any[]) => JSX.Element | Promise<JSX.Element>) | FC<any>;
 
-export default function Protector(Component: ComponentType, { authenticated = true, roles = [], redirectUrl = "/home" }: IProtectOptions) {
+export default function Protector(Component: ComponentType, { authenticated = true, roles = [], redirectUrl = "/login" }: IProtectOptions) {
   return async function WrappedComponent(props: any) {
     const session = await getServerSession(authOptions);
 
     if (session && new Date() > new Date(session.user.expires)) {
-      redirect("/auth/logout");
+      redirect("/logout");
     }
 
     if (authenticated) {

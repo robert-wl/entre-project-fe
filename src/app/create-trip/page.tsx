@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { FC } from "react";
+import Protector from "@/components/middleware/protector";
 
-const CreateTrip: React.FC = () => {
+const CreateTrip: FC = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-[2] flex-col p-8 justify-center items-center">
@@ -55,4 +57,4 @@ const CreateTrip: React.FC = () => {
   );
 };
 
-export default CreateTrip;
+export default Protector(CreateTrip, {});
