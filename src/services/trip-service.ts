@@ -21,12 +21,15 @@ export default class TripService extends BaseService {
   public static async getTripWithDetails(tripId: number) {
     const { data } = await this.axios.get<GetTripWithDetailsResponse>(`/trips/getTripWithDetails/${tripId}`);
     console.log(data);
-    
+
     return data.result;
   }
 
-  public static async inviteTripMembers(dto: InviteTripMembersDTO) {
-    const { data } = await this.axios.post("/trips/inviteTripMembers", dto);
+  public static async inviteTripMembers(dto: InviteTripMembersDTO, tripId: number) {
+    const { data } = await this.axios.post("/trips/inviteTripMembers", {
+      ...dto,
+      tripId,
+    });
 
     return data;
   }

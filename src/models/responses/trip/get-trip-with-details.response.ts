@@ -1,3 +1,3 @@
 export interface GetTripWithDetailsResponse {
-    result: Trip;
+  result: Trip;
 }

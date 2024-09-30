@@ -5,6 +5,6 @@ interface Trip {
   ownerId: number;
   members: number[];
   owner: {
-    id ?: number;
-  }
+    id?: number;
+  };
 }
