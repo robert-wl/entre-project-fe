@@ -21,7 +21,13 @@ const Home: FC = () => {
   }, []);
 
   if (trips === undefined) {
-    return <TripCardSkeleton />;
+    return (
+      <div className="flex flex-wrap justify-center w-full gap-6 p-6">
+        {[1, 2, 3].map((_, idx) => (
+          <TripCardSkeleton key={idx} />
+        ))}
+      </div>
+    );
   }
 
   if (trips.length === 0) {

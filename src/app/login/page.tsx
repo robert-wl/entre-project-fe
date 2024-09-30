@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 
     console.log(response);
     if (!response?.error) {
-      router.push("/");
+      router.push("/home");
     }
   };
 

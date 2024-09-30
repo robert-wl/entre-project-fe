@@ -12,7 +12,9 @@ const TripCard: FC<Props> = ({ trip }) => {
         <p className="text-2xl font-semibold">{trip.name}</p>
         <p className="text-lg text-gray-400">{trip.members.length + 1} traveler(s)</p>
       </div>
-      <Link href={'/trip-detail'} className="w-full">
+      <Link
+        href={"/trip-detail"}
+        className="w-full">
         <p className="w-full text-right text-gray-400 underline ">{"View Detail >"}</p>
       </Link>
     </div>
