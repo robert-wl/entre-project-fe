@@ -17,7 +17,7 @@ const CreateTrip: React.FC = () => {
   const createTrip = async (data: ICreateTripForm) => {
     const response = await TripService.createTrip({
       name: data.name,
-      description: data.description
+      description: data.description,
     });
     console.log(response);
   };

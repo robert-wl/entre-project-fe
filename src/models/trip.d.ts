@@ -3,4 +3,5 @@ interface Trip {
   name: string;
   description: string;
   ownerId: number;
+  members: number[];
 }
