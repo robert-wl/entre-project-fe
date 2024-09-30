@@ -13,7 +13,7 @@ const TripCard: FC<Props> = ({ trip }) => {
         <p className="text-lg text-gray-400">{trip.members.length + 1} traveler(s)</p>
       </div>
       <Link
-        href={"/trip-detail"}
+        href={`/trip-detail/${trip.id}`}
         className="w-full">
         <p className="w-full text-right text-gray-400 underline ">{"View Detail >"}</p>
       </Link>
