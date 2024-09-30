@@ -14,6 +14,19 @@ export default abstract class BaseService {
       return config;
     });
 
+    this.axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        console.log(error.response.status);
+        if (error.response.status === 401) {
+          //redirect user
+          if (typeof window !== "undefined") window.location.href = "/logout";
+        }
+
+        return Promise.reject(error);
+      },
+    );
+
     return this.axiosInstance;
   }
 }
