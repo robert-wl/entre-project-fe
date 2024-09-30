@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
       <Link href={"/home"}>
         <img
           className="w-5/12 min-w-36 max-w-40 h-auto"
-          src={"logo-cropped.png"}
+          src={"/logo-cropped.png"}
           alt=""
         />
       </Link>
