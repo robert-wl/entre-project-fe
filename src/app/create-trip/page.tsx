@@ -1,10 +1,22 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { FC } from "react";
 import Protector from "@/components/middleware/protector";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateTripDTO, createTripSchema } from "@/models/schema/trip/create-trip.dto";
 
 const CreateTrip: FC = () => {
+  const { register, handleSubmit } = useForm<CreateTripDTO>({
+    resolver: zodResolver(createTripSchema),
+  });
+
+  const createTrip = async (data: CreateTripDTO) => {
+    //
+  };
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-[2] flex-col p-8 justify-center items-center">
@@ -30,19 +42,22 @@ const CreateTrip: FC = () => {
               <SheetDescription></SheetDescription>
             </SheetHeader>
             <form
-              action=""
+              onSubmit={handleSubmit(createTrip)}
               className="w-full h-full flex flex-col gap-4">
               <Input
+                {...register("name")}
                 className="py-6 bg-background"
                 type="text"
                 placeholder="Trip name"
               />
               <Input
+                {...register("description")}
                 className="py-6 bg-background"
                 type="text"
                 placeholder="Description"
               />
               <Input
+                {...register("numberOfTravelers")}
                 type="text"
                 className="py-6 bg-background"
                 placeholder="Number of travelers"

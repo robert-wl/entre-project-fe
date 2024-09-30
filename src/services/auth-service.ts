@@ -1,6 +1,6 @@
 import BaseService from "@/services/base-service";
-import { LoginResponse } from "@/models/responses/login-response";
-import { RegisterResponse } from "@/models/responses/register-response";
+import { LoginResponse } from "@/models/responses/auth/login.response";
+import { RegisterResponse } from "@/models/responses/auth/register.response";
 
 export default class AuthService extends BaseService {
   public static async login(email: string, password: string) {

@@ -5,31 +5,17 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import AuthService from "@/services/auth-service";
 import { useRouter } from "next/navigation";
-
-const registerFormSchema = z
-  .object({
-    name: z.string().min(1),
-    email: z.string().email(),
-    password: z.string().min(8),
-    confirmPassword: z.string().min(8),
-    phoneNumber: z.string().min(11),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-  });
-
-type RegistrationForm = z.infer<typeof registerFormSchema>;
+import { RegisterDTO, registerSchema } from "@/models/schema/register/register.dto";
 
 const Register: React.FC = () => {
-  const { register, handleSubmit } = useForm<RegistrationForm>({
-    resolver: zodResolver(registerFormSchema),
+  const { register, handleSubmit } = useForm<RegisterDTO>({
+    resolver: zodResolver(registerSchema),
   });
   const router = useRouter();
 
-  const registerUser = async (data: RegistrationForm) => {
+  const registerUser = async (data: RegisterDTO) => {
     const response = await AuthService.register(data.name, data.email, data.password, data.phoneNumber);
 
     if (!response) return;
