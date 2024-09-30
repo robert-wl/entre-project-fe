@@ -3,18 +3,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { FC } from "react";
-import Protector from "@/components/middleware/protector";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateTripDTO, createTripSchema } from "@/models/schema/trip/create-trip.dto";
+import TripService from "@/services/trip-service";
 
 const CreateTrip: FC = () => {
-  const { register, handleSubmit } = useForm<CreateTripDTO>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateTripDTO>({
     resolver: zodResolver(createTripSchema),
   });
 
+  console.log(errors);
   const createTrip = async (data: CreateTripDTO) => {
-    //
+    const result = await TripService.createTrip(data);
   };
 
   return (
@@ -57,12 +62,16 @@ const CreateTrip: FC = () => {
                 placeholder="Description"
               />
               <Input
-                {...register("numberOfTravelers")}
-                type="text"
+                {...register("numberOfTravelers", { valueAsNumber: true })}
+                type="number"
                 className="py-6 bg-background"
                 placeholder="Number of travelers"
               />
-              <Button className="w-full py-6 rounded-3xl text-background font-bold">Continue</Button>
+              <Button
+                type="submit"
+                className="w-full py-6 rounded-3xl text-background font-bold">
+                Continue
+              </Button>
             </form>
             <p className="text-sm text-gray-400">© SplanNGo All rights reserved</p>
           </SheetContent>
@@ -72,4 +81,4 @@ const CreateTrip: FC = () => {
   );
 };
 
-export default Protector(CreateTrip, {});
+export default CreateTrip;

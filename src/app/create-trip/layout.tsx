@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { FC, ReactNode } from "react";
+import Protector from "@/components/middleware/protector";
 
 interface Props {
   children: ReactNode;
@@ -14,4 +15,4 @@ const Layout: FC<Props> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default Protector(Layout, {});

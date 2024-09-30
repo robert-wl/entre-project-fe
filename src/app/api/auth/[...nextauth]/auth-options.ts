@@ -22,7 +22,11 @@ export const authOptions: NextAuthOptions = {
 
         if (!email || !password) throw new Error("Email and Password are required");
 
-        const response = await AuthService.login(email, password);
+        const response = await AuthService.login({
+          email,
+          password,
+        });
+
         return {
           ...response.user,
           token: response.access_token,

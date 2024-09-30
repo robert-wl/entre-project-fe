@@ -1,16 +1,11 @@
 import BaseService from "@/services/base-service";
-import { LoginResponse } from "@/models/responses/auth/login.response";
+import { CreateTripDTO } from "@/models/schema/trip/create-trip.dto";
+import { CreateTripResponse } from "@/models/responses/trip/create-trip.response";
 
 export default class TripService extends BaseService {
-  public static async login(email: string, password: string) {
-    const payload = {
-      email,
-      password,
-    };
+  public static async createTrip(dto: CreateTripDTO) {
+    const { data } = await this.axios.post<CreateTripResponse>("/trips", dto);
 
-    const { data } = await this.axios.post<LoginResponse>("/auth/login", payload);
-
-    console.log(data);
     return data;
   }
 }

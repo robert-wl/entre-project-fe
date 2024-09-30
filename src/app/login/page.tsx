@@ -6,17 +6,17 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
-
-interface ILoginForm {
-  email: string;
-  password: string;
-}
+import { LoginDTO, loginSchema } from "@/models/schema/register/login.dto";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Login: React.FC = () => {
-  const { register, handleSubmit } = useForm<ILoginForm>();
+  const { register, handleSubmit } = useForm<LoginDTO>({
+    resolver: zodResolver(loginSchema),
+  });
+
   const router = useRouter();
 
-  const login = async (data: ILoginForm) => {
+  const login = async (data: LoginDTO) => {
     const response = await signIn("credentials", {
       redirect: false,
       email: data.email,

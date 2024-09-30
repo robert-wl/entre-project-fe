@@ -16,7 +16,7 @@ const Register: React.FC = () => {
   const router = useRouter();
 
   const registerUser = async (data: RegisterDTO) => {
-    const response = await AuthService.register(data.name, data.email, data.password, data.phoneNumber);
+    const response = await AuthService.register(data);
 
     if (!response) return;
 
