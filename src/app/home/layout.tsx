@@ -7,7 +7,7 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <div className="w-screen h-screen flex flex-col items-center">
+    <div className="w-screen min-h-screen flex flex-col items-center">
       <Navbar />
       {children}
     </div>

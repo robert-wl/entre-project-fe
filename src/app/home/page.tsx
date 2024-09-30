@@ -54,7 +54,7 @@ const Home: FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-full gap-6 p-6">
+    <div className="flex flex-wrap justify-center w-full gap-6 p-6">
       {trips.map((t, idx) => (
         <TripCard
           trip={t}

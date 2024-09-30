@@ -34,7 +34,7 @@ const Login: React.FC = () => {
       <div className="w-full flex flex-col items-center">
         <img
           src="/logo-cropped.png"
-          className="w-10/12"
+          className="w-10/12 max-w-xs"
           alt=""
         />
         <p className="font-semibold text-lg">Sign in to continue</p>
@@ -44,20 +44,20 @@ const Login: React.FC = () => {
         className="w-full flex flex-col items-center gap-4">
         <Input
           {...register("email")}
-          className="py-6"
+          className="max-w-xl py-6"
           type="text"
           placeholder="Email"
         />
         <Input
           {...register("password")}
-          className="py-6"
+          className="max-w-xl py-6"
           type="password"
           placeholder="Password"
         />
-        <p className="w-full text-xs underline text-gray-400">Forgot Password?</p>
+        <p className="w-full max-w-xl text-xs underline text-gray-400">Forgot Password?</p>
         <Button
           type="submit"
-          className="w-full py-6 rounded-3xl font-bold">
+          className="w-full max-w-xl py-6 rounded-3xl font-bold">
           Sign In
         </Button>
         <Link href={"/register"}>

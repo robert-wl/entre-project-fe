@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import { FC, ReactNode } from "react";
-import Protector from "@/components/middleware/protector";
 
 interface Props {
   children: ReactNode;
@@ -8,11 +7,11 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <div className="w-screen min-h-screen flex flex-col items-center">
+    <div className="w-screen h-screen flex flex-col items-center">
       <Navbar />
       {children}
     </div>
   );
 };
 
-export default Protector(Layout, {});
+export default Layout;

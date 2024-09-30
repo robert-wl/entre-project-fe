@@ -38,7 +38,7 @@ const CreateTrip: React.FC = () => {
           <SheetTrigger>Add</SheetTrigger>
           <SheetContent
             side={"bottom"}
-            className="w-full h-3/5 flex flex-col p-8 gap-8 items-center bg-gradient-to-b from-primary-foreground to-background rounded-t-2xl">
+            className="w-full h-3/5 overflow-y-auto flex flex-col p-8 gap-8 items-center bg-gradient-to-b from-primary-foreground to-background rounded-t-2xl">
             <SheetHeader>
               <SheetTitle>
                 <p className="text-2xl font-semibold text-center">Let's start with the</p>
@@ -48,22 +48,22 @@ const CreateTrip: React.FC = () => {
             </SheetHeader>
             <form
               onSubmit={handleSubmit(createTrip)}
-              className="w-full h-full flex flex-col gap-4">
-              <div className="flex flex-col flex-1 gap-4">
+              className="w-full h-full items-center flex flex-col gap-4">
+              <div className="w-full flex flex-col items-center flex-1 gap-4">
                 <Input
                   {...register("name")}
-                  className="py-6 bg-background"
+                  className="max-w-xl py-6 bg-background"
                   type="text"
                   placeholder="Trip name"
                 />
                 <Input
                   {...register("description")}
-                  className="py-6 bg-background"
+                  className="max-w-xl py-6 bg-background"
                   type="text"
                   placeholder="Description"
                 />
               </div>
-              <Button className="w-full py-6 rounded-3xl font-bold">Continue</Button>
+              <Button className="w-full max-w-xl py-6 rounded-3xl font-bold">Continue</Button>
             </form>
             <p className="text-sm text-gray-400">© SplanNGo All rights reserved</p>
           </SheetContent>
