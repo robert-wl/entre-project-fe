@@ -1,25 +1,25 @@
 "use client";
+import Protector from "@/components/middleware/protector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { FC } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateTripDTO, createTripSchema } from "@/models/schema/trip/create-trip.dto";
 import TripService from "@/services/trip-service";
+import { useForm } from "react-hook-form";
 
-const CreateTrip: FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CreateTripDTO>({
-    resolver: zodResolver(createTripSchema),
-  });
+interface ICreateTripForm {
+  name: string;
+  description: string;
+}
 
-  console.log(errors);
-  const createTrip = async (data: CreateTripDTO) => {
-    const result = await TripService.createTrip(data);
+const CreateTrip: React.FC = () => {
+  const { register, handleSubmit } = useForm<ICreateTripForm>();
+
+  const createTrip = async (data: ICreateTripForm) => {
+    const response = await TripService.createTrip({
+      name: data.name,
+      description: data.description
+    });
+    console.log(response);
   };
 
   return (
@@ -49,29 +49,21 @@ const CreateTrip: FC = () => {
             <form
               onSubmit={handleSubmit(createTrip)}
               className="w-full h-full flex flex-col gap-4">
-              <Input
-                {...register("name")}
-                className="py-6 bg-background"
-                type="text"
-                placeholder="Trip name"
-              />
-              <Input
-                {...register("description")}
-                className="py-6 bg-background"
-                type="text"
-                placeholder="Description"
-              />
-              <Input
-                {...register("numberOfTravelers", { valueAsNumber: true })}
-                type="number"
-                className="py-6 bg-background"
-                placeholder="Number of travelers"
-              />
-              <Button
-                type="submit"
-                className="w-full py-6 rounded-3xl text-background font-bold">
-                Continue
-              </Button>
+              <div className="flex flex-col flex-1 gap-4">
+                <Input
+                  {...register("name")}
+                  className="py-6 bg-background"
+                  type="text"
+                  placeholder="Trip name"
+                />
+                <Input
+                  {...register("description")}
+                  className="py-6 bg-background"
+                  type="text"
+                  placeholder="Description"
+                />
+              </div>
+              <Button className="w-full py-6 rounded-3xl font-bold">Continue</Button>
             </form>
             <p className="text-sm text-gray-400">© SplanNGo All rights reserved</p>
           </SheetContent>

@@ -57,7 +57,7 @@ const Login: React.FC = () => {
         <p className="w-full text-xs underline text-gray-400">Forgot Password?</p>
         <Button
           type="submit"
-          className="w-full py-6 rounded-3xl text-background font-bold">
+          className="w-full py-6 rounded-3xl font-bold">
           Sign In
         </Button>
         <Link href={"/register"}>

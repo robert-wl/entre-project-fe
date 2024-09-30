@@ -68,7 +68,7 @@ const Register: React.FC = () => {
         />
         <Button
           type="submit"
-          className="w-full py-6 rounded-3xl font-bold text-background">
+          className="w-full py-6 rounded-3xl font-bold">
           Sign Up
         </Button>
         <Link href={"/login"}>
