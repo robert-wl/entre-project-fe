@@ -1,23 +1,35 @@
-import axios from "axios";
-import { getSession, SessionContext } from "next-auth/react";
+import axios, { AxiosInstance } from "axios";
 import { redirect } from "next/navigation";
+import injectClientToken from "@/lib/client-token-injector";
 
 export default abstract class BaseService {
   private static BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-  private static axiosInstance = axios.create();
+  private static axiosInstance: AxiosInstance;
 
   protected static get axios() {
-    this.axiosInstance.interceptors.request.use(async (config) => {
-      let session = await getSession();
+    if (!this.axiosInstance) {
+      this.axiosInstance = this.getAxiosInstance();
+    }
+    return this.axiosInstance;
+  }
 
-      console.log("SESSION DATA", SessionContext);
-      config.headers.Authorization = `Bearer ${session?.user?.token}`;
+  private static getAxiosInstance() {
+    const axiosInstance = axios.create();
+
+    axiosInstance.interceptors.request.use(async (config) => {
+      if (typeof window !== "undefined") {
+        await injectClientToken(config);
+      } else {
+        const { default: injectServerToken } = await import("@/lib/server-token-injector");
+        await injectServerToken(config);
+      }
+
       config.baseURL = this.BACKEND_URL;
 
       return config;
     });
 
-    this.axiosInstance.interceptors.response.use(
+    axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
         if (error.response?.status === 401) {
@@ -33,6 +45,6 @@ export default abstract class BaseService {
       },
     );
 
-    return this.axiosInstance;
+    return axiosInstance;
   }
 }
