@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
+import {Trip} from "@/models/trip";
 
 interface Props {
   trip: Trip;
@@ -10,7 +11,7 @@ const TripCard: FC<Props> = ({ trip }) => {
     <div className="w-full max-w-sm p-4 rounded-2xl shadow-lg">
       <div className="gap-4 min-h-32">
         <p className="text-2xl font-semibold">{trip.name}</p>
-        <p className="text-lg text-gray-400">{trip.members.length + 1} traveler(s)</p>
+        <p className="text-lg text-gray-400">{trip.members.length} traveler(s)</p>
       </div>
       <Link
         href={`/trip-detail/${trip.id}`}

@@ -1,13 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { LoginDTO, loginSchema } from "@/models/schema/register/login.dto";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 
 const Login: React.FC = () => {
   const { register, handleSubmit } = useForm<LoginDTO>({

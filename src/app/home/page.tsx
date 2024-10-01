@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import TripService from "@/services/trip-service";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
+import {Trip} from "@/models/trip";
 
 const Home: FC = () => {
   const [trips, setTrips] = useState<Trip[] | undefined>();

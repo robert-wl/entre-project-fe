@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getSession } from "next-auth/react";
+import { getSession, SessionContext } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default abstract class BaseService {
   private static BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -7,7 +8,9 @@ export default abstract class BaseService {
 
   protected static get axios() {
     this.axiosInstance.interceptors.request.use(async (config) => {
-      const session = await getSession();
+      let session = await getSession();
+
+      console.log("SESSION DATA", SessionContext);
       config.headers.Authorization = `Bearer ${session?.user?.token}`;
       config.baseURL = this.BACKEND_URL;
 
@@ -17,10 +20,13 @@ export default abstract class BaseService {
     this.axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
-        console.log(error.response.status);
-        if (error.response.status === 401) {
+        if (error.response?.status === 401) {
           //redirect user
-          if (typeof window !== "undefined") window.location.href = "/logout";
+          if (typeof window !== "undefined") {
+            window.location.href = "/logout";
+          } else {
+            redirect("/logout");
+          }
         }
 
         return Promise.reject(error);

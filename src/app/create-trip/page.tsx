@@ -3,23 +3,26 @@ import Protector from "@/components/middleware/protector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { CreateTripDTO, createTripSchema } from "@/models/schema/trip/create-trip.dto";
 import TripService from "@/services/trip-service";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-interface ICreateTripForm {
-  name: string;
-  description: string;
-}
-
 const CreateTrip: React.FC = () => {
-  const { register, handleSubmit } = useForm<ICreateTripForm>();
+  const { register, handleSubmit } = useForm<CreateTripDTO>({
+    resolver: zodResolver(createTripSchema),
+  });
+  const router = useRouter();
 
-  const createTrip = async (data: ICreateTripForm) => {
-    const response = await TripService.createTrip({
-      name: data.name,
-      description: data.description,
-    });
-    console.log(response);
+  const createTrip = async (data: CreateTripDTO) => {
+    const response = await TripService.createTrip(data);
+
+    if (!response) {
+      return;
+    }
+
+    router.push("/home");
   };
 
   return (
