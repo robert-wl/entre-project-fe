@@ -1,35 +1,11 @@
-"use client";
-import TripCard from "@/components/TripCard";
-import TripCardSkeleton from "@/components/TripCardSkeleton";
+import TripCard from "@/app/home/_components/trip-card";
 import { Button } from "@/components/ui/button";
 import TripService from "@/services/trip-service";
 import Link from "next/link";
-import { FC, useEffect, useState } from "react";
-import {Trip} from "@/models/trip";
+import { FC } from "react";
 
-const Home: FC = () => {
-  const [trips, setTrips] = useState<Trip[] | undefined>();
-
-  const getMyTrips = async () => {
-    const result = await TripService.getMyTrips();
-    console.log(result);
-
-    setTrips(result);
-  };
-
-  useEffect(() => {
-    getMyTrips();
-  }, []);
-
-  if (trips === undefined) {
-    return (
-      <div className="flex flex-wrap justify-center w-full gap-6 p-6">
-        {[1, 2, 3].map((_, idx) => (
-          <TripCardSkeleton key={idx} />
-        ))}
-      </div>
-    );
-  }
+const Home: FC = async () => {
+  const trips = await TripService.getMyTrips();
 
   if (trips.length === 0) {
     return (

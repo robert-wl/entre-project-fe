@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {Trip} from "@/models/trip";
+import { Trip } from "@/models/trip";
 
 const tabs = ["Destination", "Itinerary", "Bills"];
 const billFilters = ["All", "Active"];

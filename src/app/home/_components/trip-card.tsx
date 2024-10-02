@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
-import {Trip} from "@/models/trip";
+import { Trip } from "@/models/trip";
 
 interface Props {
   trip: Trip;

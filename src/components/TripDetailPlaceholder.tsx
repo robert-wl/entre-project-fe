@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Skeleton } from "./ui/skeleton";
 import { Nullable } from "@/types/utils";
-import {Trip} from "@/models/trip";
+import { Trip } from "@/models/trip";
 
 interface Props {
   trip: Nullable<Trip>;

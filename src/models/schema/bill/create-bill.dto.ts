@@ -13,8 +13,8 @@ export const createBillSchema = z.object({
           quantity: z.number().min(0),
         }),
       ),
-    })
-  )
+    }),
+  ),
 });
 
 export type CreateBillDTO = z.infer<typeof createBillSchema>;
