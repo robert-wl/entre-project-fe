@@ -6,15 +6,10 @@ import { LoginDTO } from "@/models/schema/register/login.dto";
 
 export default class AuthService extends BaseService {
   public static async login(dto: LoginDTO) {
-    const { data } = await this.axios.post<LoginResponse>("/auth/login", dto);
-
-    console.log("LOGIN RESPONSE", data);
-    return data;
+    return this.post<LoginResponse>("/auth/login", dto);
   }
 
   public static async register(dto: RegisterDTO) {
-    const { data } = await this.axios.post<RegisterResponse>("/auth/register", dto);
-
-    return data;
+    return this.post<RegisterResponse>("/auth/register", dto);
   }
 }

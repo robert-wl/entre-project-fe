@@ -5,9 +5,9 @@ import Link from "next/link";
 import { FC } from "react";
 
 const Home: FC = async () => {
-  const trips = await TripService.getMyTrips();
+  const [response, error] = await TripService.getMyTrips();
 
-  if (trips.length === 0) {
+  if (response?.result.length === 0) {
     return (
       <>
         <div className="flex flex-col flex-1 gap-8 px-10 justify-center items-center">
@@ -38,7 +38,7 @@ const Home: FC = async () => {
 
   return (
     <div className="flex flex-wrap justify-center w-full gap-6 p-6">
-      {trips.map((t, idx) => (
+      {response?.result.map((t, idx) => (
         <TripCard
           trip={t}
           key={idx}

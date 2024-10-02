@@ -33,8 +33,13 @@ const TripDetail: FC<Props> = ({ params: { id } }) => {
   });
 
   const fetchTripDetail = async () => {
-    const result = await TripService.getTripWithDetails(id);
-    setTrip(result);
+    const [response, error] = await TripService.getTripWithDetails(id);
+
+    if (error) {
+      return;
+    }
+
+    setTrip(response.result);
   };
 
   const inviteTripMembers = async (data: InviteTripMembersDTO) => {

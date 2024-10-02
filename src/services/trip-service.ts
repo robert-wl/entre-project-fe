@@ -7,30 +7,21 @@ import { GetTripWithDetailsResponse } from "@/models/responses/trip/get-trip-wit
 
 export default class TripService extends BaseService {
   public static async createTrip(dto: CreateTripDTO) {
-    const { data } = await this.axios.post<CreateTripResponse>("/trips/createTrip", dto);
-
-    return data;
+    return this.post<CreateTripResponse>("/trips/createTrip", dto);
   }
 
   public static async getMyTrips() {
-    const { data } = await this.axios.get<GetMyTripsResponse>("/trips/getMyTrips");
-
-    return data.result;
+    return this.get<GetMyTripsResponse>("/trips/getMyTrips");
   }
 
   public static async getTripWithDetails(tripId: number) {
-    const { data } = await this.axios.get<GetTripWithDetailsResponse>(`/trips/getTripWithDetails/${tripId}`);
-    console.log(data);
-
-    return data.result;
+    return this.get<GetTripWithDetailsResponse>(`/trips/getTripWithDetails/${tripId}`);
   }
 
   public static async inviteTripMembers(dto: InviteTripMembersDTO, tripId: number) {
-    const { data } = await this.axios.post("/trips/inviteTripMembers", {
+    return this.post("/trips/inviteTripMembers", {
       ...dto,
       tripId,
     });
-
-    return data;
   }
 }

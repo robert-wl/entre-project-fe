@@ -25,8 +25,6 @@ export default class BillService extends BaseService {
 
     console.log("PAYLOAD", payload);
 
-    const { data } = await this.axios.post<CreateBillResponse>("/bills/createBill", payload);
-
-    return data;
+    return this.post<CreateBillResponse>("/bills/createBill", payload);
   }
 }

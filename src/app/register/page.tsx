@@ -16,9 +16,9 @@ const Register: React.FC = () => {
   const router = useRouter();
 
   const registerUser = async (data: RegisterDTO) => {
-    const response = await AuthService.register(data);
+    const [_, error] = await AuthService.register(data);
 
-    if (!response) return;
+    if (error) return;
 
     router.push("/login");
   };
@@ -39,31 +39,41 @@ const Register: React.FC = () => {
         <Input
           {...register("name")}
           className="py-6 max-w-xl"
+          name="name"
           type="text"
+          autoComplete="name"
           placeholder="Name"
         />
         <Input
           {...register("email")}
           className="py-6 max-w-xl"
+          name="email"
           type="text"
+          autoComplete="email"
           placeholder="Email"
         />
         <Input
           {...register("password")}
           className="py-6 max-w-xl"
+          name="password"
           type="password"
+          autoComplete="new-password"
           placeholder="Password"
         />
         <Input
           {...register("confirmPassword")}
           className="py-6 max-w-xl"
+          name="confirmPassword"
           type="password"
+          autoComplete="new-password"
           placeholder="Confirm Password"
         />
         <Input
           {...register("phoneNumber")}
           className="py-6 max-w-xl"
+          name="phoneNumber"
           type="text"
+          autoComplete="tel"
           placeholder="Phone Number"
         />
         <Button

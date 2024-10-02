@@ -54,15 +54,17 @@ const CreateBill: FC<Props> = ({ params: { id } }) => {
   };
 
   const createBill = async (data: CreateBillDTO) => {
-    console.log("DATAA", data);
-    const result = await BillService.createBill(data);
-
-    console.log("CREATE BILL SUCECSS");
+    const [result, error] = await BillService.createBill(data);
   };
 
   const fetchTripDetail = async () => {
-    const result = await TripService.getTripWithDetails(Number.parseInt(id));
-    setTrip(result);
+    const [response, error] = await TripService.getTripWithDetails(Number.parseInt(id));
+
+    if (error) {
+      return;
+    }
+
+    setTrip(response.result);
   };
 
   useEffect(() => {
