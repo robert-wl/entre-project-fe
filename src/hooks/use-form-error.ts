@@ -3,7 +3,7 @@ import { FieldErrors, FieldValues } from "react-hook-form";
 
 const maxLayer = 4;
 
-export default function useToastError() {
+export default function useFormError() {
   const { trigger } = useToast();
 
   const collectMessages = (object: any) => {
@@ -27,6 +27,7 @@ export default function useToastError() {
   };
 
   const onError = <T extends FieldValues>(error: FieldErrors<T>) => {
+    console.log(error);
     const errorMessages = collectMessages(error);
 
     if (errorMessages.length > 0) {

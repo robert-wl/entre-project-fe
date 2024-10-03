@@ -1,128 +1,68 @@
-"use client";
-import Navbar from "@/components/Navbar";
-import TripDetailPlaceholder from "@/components/TripDetailPlaceholder";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { InviteTripMembersDTO, inviteTripMembersSchema } from "@/models/schema/trip/invite-trip-member-dto";
+import { FC } from "react";
 import TripService from "@/services/trip-service";
-import { Nullable } from "@/types/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { FC, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Trip } from "@/models/trip";
-import FloatActionButton from "@/components/ui/float-action-button";
-
-const tabs = ["Destination", "Itinerary", "Bills"];
-const billFilters = ["All", "Active"];
+import { redirect } from "next/navigation";
+import GradientLayout from "@/components/layouts/gradient-layout";
+import { cn } from "@/lib/utils";
+import TripDetailHeader from "@/app/trip-detail/[id]/_components/trip-detail-header";
+import Link from "next/link";
+import BillTab from "@/app/trip-detail/[id]/_components/bill-tab";
+import BillService from "@/services/bill-service";
 
 interface Props {
   params: { id: number };
+  searchParams: { tab: string };
 }
 
-const TripDetail: FC<Props> = ({ params: { id } }) => {
-  const router = useRouter();
-  const [trip, setTrip] = useState<Nullable<Trip>>(null);
-  const [activeTab, setActiveTab] = useState<string>(tabs[0]);
+const pageTabs = ["destination", "itinerary", "bills"];
 
-  const [selectedBillFilter, setSelectedBillFilter] = useState<string>(billFilters[0]);
+const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) => {
+  const currentTab = tab || pageTabs[0];
+  const [response, error] = await TripService.getTripWithDetails(id);
 
-  const { register, handleSubmit, reset } = useForm<InviteTripMembersDTO>({
-    resolver: zodResolver(inviteTripMembersSchema),
-  });
+  if (error) {
+    redirect("/home");
+  }
 
-  const fetchTripDetail = async () => {
-    const [response, error] = await TripService.getTripWithDetails(id);
+  const TabComponent = async () => {
+    const trip = response.result;
 
-    if (error) {
-      return;
+    if (currentTab === "bills") {
+      const [response, error] = await BillService.getBills(trip.id);
+
+      if (error) {
+        redirect("/home");
+      }
+
+      return (
+        <BillTab
+          tripId={trip.id}
+          bills={response.result}
+        />
+      );
     }
-
-    setTrip(response.result);
   };
-
-  const inviteTripMembers = async (data: InviteTripMembersDTO) => {
-    await TripService.inviteTripMembers(data, trip!.id);
-    reset();
-  };
-
-  useEffect(() => {
-    fetchTripDetail();
-  }, []);
 
   return (
-    <>
-      <Navbar />
-      <div className="w-full px-8 py-4 mb-4">
-        <TripDetailPlaceholder trip={trip} />
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="w-24 text-base font-bold rounded-full">Invite</Button>
-          </DialogTrigger>
-          <DialogContent className="flex flex-col items-center w-3/4 max-w-xl rounded-xl">
-            <DialogHeader>
-              <DialogTitle>Invitation</DialogTitle>
-              <DialogDescription></DialogDescription>
-            </DialogHeader>
-            <form
-              onSubmit={handleSubmit(inviteTripMembers)}
-              className="w-full">
-              <Input
-                {...register("emails")}
-                placeholder="Email"
-                className="w-full mb-4"
-              />
-              <Button
-                type="submit"
-                className="w-full font-bold rounded-full">
-                Send
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
-      </div>
+    <GradientLayout>
+      <TripDetailHeader trip={response.result} />
 
       <div className="w-full h-full flex flex-col flex-1">
         <div className="w-full flex justify-evenly">
-          {tabs.map((tab) => (
-            <p
-              className={`flex-1 p-2 text-center 
-                          ${activeTab === tab ? "border-black border-b" : ""}
-                      `}
-              onClick={() => setActiveTab(tab)}
-              key={tab}>
-              {tab}
-            </p>
-          ))}
+          {pageTabs.map((tab) => {
+            console.log(tab, currentTab);
+            return (
+              <Link
+                href={`/trip-detail/${id}?tab=${tab}`}
+                className={cn(currentTab === tab ? "border-black border-b" : "", `flex-1 p-2 text-center capitalize`)}
+                key={tab}>
+                {tab}
+              </Link>
+            );
+          })}
         </div>
-        {activeTab === "Bills" && (
-          <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">
-            <Select
-              value={selectedBillFilter}
-              onValueChange={(value) => setSelectedBillFilter(value)}>
-              <SelectTrigger className="w-32 bg-white">
-                <SelectValue placeholder="Bill" />
-              </SelectTrigger>
-              <SelectContent>
-                {billFilters.map((filter) => (
-                  <SelectItem
-                    value={filter}
-                    key={filter}>
-                    {filter}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <div className="w-full flex-1">
-              <FloatActionButton onClick={() => router.push(`/trip-detail/${id}/create-bill`)}>+</FloatActionButton>
-            </div>
-          </div>
-        )}
+        <TabComponent />
       </div>
-    </>
+    </GradientLayout>
   );
 };
 

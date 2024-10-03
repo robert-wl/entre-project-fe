@@ -6,7 +6,7 @@ export const createBillSchema = z.object({
   billDetail: z
     .array(
       z.object({
-        userId: z.number().min(1, "You must choose a user"),
+        userId: z.string().min(1, "You must choose a user"),
         items: z
           .array(
             z.object({

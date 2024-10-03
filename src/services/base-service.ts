@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from "axios";
 import { redirect } from "next/navigation";
-import injectClientToken from "@/lib/client-token-injector";
 import { BackendResponse } from "@/models/backend/backend.response";
 
 export default abstract class BaseService {
@@ -14,11 +13,32 @@ export default abstract class BaseService {
     return this.axiosInstance;
   }
 
+  protected static async get<T>(url: string): Promise<BackendResponse<T>> {
+    try {
+      const { data } = await this.axios.get<T>(url);
+
+      return [data, null];
+    } catch (error) {
+      return [null, this.handleError(error)];
+    }
+  }
+
+  protected static async post<T>(url: string, body: Object): Promise<BackendResponse<T>> {
+    try {
+      const { data } = await this.axios.post<T>(url, body);
+
+      return [data, null];
+    } catch (error) {
+      return [null, this.handleError(error)];
+    }
+  }
+
   private static getAxiosInstance() {
     const axiosInstance = axios.create();
 
     axiosInstance.interceptors.request.use(async (config) => {
       if (typeof window !== "undefined") {
+        const { default: injectClientToken } = await import("@/lib/client-token-injector");
         await injectClientToken(config);
       } else {
         const { default: injectServerToken } = await import("@/lib/server-token-injector");
@@ -55,25 +75,5 @@ export default abstract class BaseService {
       statusCode: 500,
       error: "Internal Server Error",
     };
-  }
-
-  protected static async get<T>(url: string): Promise<BackendResponse<T>> {
-    try {
-      const { data } = await this.axios.get<T>(url);
-
-      return [data, null];
-    } catch (error) {
-      return [null, this.handleError(error)];
-    }
-  }
-
-  protected static async post<T>(url: string, body: Object): Promise<BackendResponse<T>> {
-    try {
-      const { data } = await this.axios.post<T>(url, body);
-
-      return [data, null];
-    } catch (error) {
-      return [null, this.handleError(error)];
-    }
   }
 }

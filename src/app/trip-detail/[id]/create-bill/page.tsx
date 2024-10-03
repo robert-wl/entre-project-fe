@@ -9,7 +9,7 @@ interface Props {
 
 const CreateBill: FC<Props> = async ({ params: { id } }) => {
   const [response, error] = await TripService.getTripWithDetails(Number.parseInt(id));
-  console.log(response, error);
+
   if (error) {
     redirect("/home");
   }

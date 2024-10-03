@@ -11,7 +11,9 @@ import IconCancel from "@/components/icons/IconCancel";
 import GradientLayout from "@/components/layouts/gradient-layout";
 import { Button } from "@/components/ui/button";
 import IconMinus from "@/components/icons/icon-minus";
-import useToastError from "@/hooks/use-toast-error";
+import useFormError from "@/hooks/use-form-error";
+import BillService from "@/services/bill-service";
+import useToast, { ToastType } from "@/hooks/use-toast";
 
 interface IProps {
   trip: Trip;
@@ -19,6 +21,8 @@ interface IProps {
 
 const CreateBillForm: FC<IProps> = ({ trip }) => {
   const router = useRouter();
+  const { onError } = useFormError();
+  const { trigger } = useToast();
   const {
     register,
     handleSubmit,
@@ -31,7 +35,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
       description: "",
       billDetail: [
         {
-          userId: 0,
+          userId: "",
           items: [{ itemName: "", price: 0, quantity: 0 }],
         },
       ],
@@ -42,18 +46,22 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
     control,
     name: "billDetail",
   });
-  const { onError } = useToastError();
 
   const addBillDetail = () => {
     append({
-      userId: 1,
+      userId: "",
       items: [{ itemName: "", price: 0, quantity: 0 }],
     });
   };
 
   const createBill = async (data: CreateBillDTO) => {
-    console.log(data);
-    // const [result, error] = await BillService.createBill(data);
+    const [_, error] = await BillService.createBill(data);
+
+    if (error) {
+      trigger("Error when creating bill", ToastType.Error);
+    }
+
+    router.push(`/trip-detail/${trip.id}`);
   };
 
   const values = watch();

@@ -35,7 +35,7 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeFi
     <div className="flex flex-col w-full p-2 gap-2 items-center bg-white rounded-lg shadow-lg">
       <div className="flex items-start justify-start w-full">
         <Controller
-          name={`billDetail[${index}].class`}
+          name={`billDetail[${index}].userId`}
           control={control}
           render={({ field }) => (
             <Select
@@ -83,7 +83,7 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeFi
           />
           <button
             onClick={() => removeBillItem(itemIndex)}
-            className="flex items-center justify-center text-base bg-red-500 hover:bg-red-600 text-white rounded-full size-8">
+            className="flex items-center justify-center text-base bg-red-500 hover:bg-red-600 text-white shadow-md rounded-full size-8">
             <IconMinus />
           </button>
         </div>
