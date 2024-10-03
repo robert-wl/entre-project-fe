@@ -8,7 +8,7 @@ interface Props {
 
 const TripCard: FC<Props> = ({ trip }) => {
   return (
-    <div className="w-full max-w-sm p-4 rounded-2xl shadow-lg">
+    <div className="w-full max-w-sm p-4 bg-white rounded-2xl drop-shadow-lg">
       <div className="gap-4 min-h-32">
         <p className="text-2xl font-semibold">{trip.name}</p>
         <p className="text-lg text-gray-400">{trip.members.length} traveler(s)</p>

@@ -67,7 +67,7 @@ export default abstract class BaseService {
     }
   }
 
-  protected static async post<T>(url: string, body: any): Promise<BackendResponse<T>> {
+  protected static async post<T>(url: string, body: Object): Promise<BackendResponse<T>> {
     try {
       const { data } = await this.axios.post<T>(url, body);
 

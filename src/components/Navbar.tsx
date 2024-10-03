@@ -6,17 +6,17 @@ import Link from "next/link";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="flex h-fit p-8 w-full bg-background items-center justify-between">
+    <nav className="flex sticky top-0 h-fit z-[10] px-8 py-4 w-full bg-white items-center justify-between shadow-md">
       <Link href={"/home"}>
         <img
-          className="w-5/12 min-w-36 max-w-40 h-auto"
+          className="w-1/4 min-w-28 max-w-40 h-auto"
           src={"/logo-cropped.png"}
           alt=""
         />
       </Link>
       <Sheet>
         <SheetTrigger
-          className="size-8 flex justify-center items-center"
+          className="size-6 flex justify-center items-center"
           asChild>
           <IconMenu className="text-primary" />
         </SheetTrigger>
