@@ -17,15 +17,17 @@ const GradientLayout: FC<IProps> = ({
   disabled = false,
   showNavbar = true,
   from = "rgba(0,217,166,0.2)",
-  to = "rgba(0,217,166,0.1)",
+  to = "rgba(255,255,255,0.1)",
   className,
 }) => {
+  const backgroundStyle = {
+    background: `linear-gradient(0deg, ${from} 0%, ${to} 100%)`,
+  };
+
   return (
     <div
-      className={cn(
-        disabled ? "" : `bg-gradient-to-t from-[${from}] to-[${to}]`,
-        "w-screen justify-between min-h-screen h-full flex flex-col items-center",
-      )}>
+      style={!disabled ? backgroundStyle : {}}
+      className={cn("w-screen justify-between min-h-screen h-full flex flex-col items-center")}>
       <div className={cn("flex flex-col flex-grow h-full min-h-full w-full", className)}>
         {showNavbar && <Navbar />}
         {children}

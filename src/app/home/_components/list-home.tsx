@@ -3,8 +3,8 @@ import GradientLayout from "@/components/layouts/gradient-layout";
 import { FC } from "react";
 import TripCard from "./trip-card";
 import { Trip } from "@/models/trip";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import FloatActionButton from "@/components/ui/float-action-button";
 
 interface IProps {
   tripList: Trip[];
@@ -22,11 +22,7 @@ const ListHome: FC<IProps> = ({ tripList }) => {
           />
         ))}
       </div>
-      <Button
-        className="fixed bottom-4 right-4 text-3xl rounded-full size-12"
-        onClick={() => router.push(`/create-trip`)}>
-        +
-      </Button>
+      <FloatActionButton onClick={() => router.push(`/create-trip`)}>+</FloatActionButton>
     </GradientLayout>
   );
 };

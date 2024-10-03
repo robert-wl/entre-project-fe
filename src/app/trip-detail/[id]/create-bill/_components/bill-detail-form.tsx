@@ -5,21 +5,30 @@ import { User } from "next-auth";
 import { Control, Controller, useFieldArray } from "react-hook-form";
 import IconAddOutline from "@/components/icons/icon-add-outline";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import IconMinus from "@/components/icons/icon-minus";
 
 interface IProps {
   control: Control<any>;
   index: number;
   tripMembers: User[];
+  removeField: (index: number) => void;
 }
 
-const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [] }) => {
-  const { fields, append } = useFieldArray({
+const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeField }) => {
+  const { fields, append, remove } = useFieldArray({
     control,
     name: `billDetail[${index}].items`,
   });
 
   const addBillItem = () => {
     append({ itemName: "", price: 0, quantity: 0 });
+  };
+
+  const removeBillItem = (index: number) => {
+    remove(index);
+    if (fields.length === 1) {
+      removeField(index);
+    }
   };
 
   return (
@@ -51,7 +60,7 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [] }) => {
       {fields.map((field, itemIndex) => (
         <div
           key={field.id}
-          className="flex gap-2">
+          className="flex gap-2 justify-center items-center">
           <Input
             className="flex-1 text-xs !py-0.5 !px-1"
             placeholder="Item name"
@@ -72,13 +81,18 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [] }) => {
               valueAsNumber: true,
             })}
           />
-          <button>-</button>
+          <button
+            onClick={() => removeBillItem(itemIndex)}
+            className="flex items-center justify-center text-base bg-red-500 hover:bg-red-600 text-white rounded-full size-8">
+            <IconMinus />
+          </button>
         </div>
       ))}
-      <div className="flex items-center justify-center bg-gray-200 w-full rounded-lg">
+      <div
+        onClick={addBillItem}
+        className="flex items-center justify-center bg-gray-200 w-full rounded-lg">
         <button
           type="button"
-          onClick={addBillItem}
           className="flex items-center justify-center text-white bg-gray-500 w-5 h-5 my-1 rounded-full">
           <IconAddOutline />
         </button>

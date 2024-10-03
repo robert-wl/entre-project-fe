@@ -26,6 +26,7 @@ const RegisterForm: FC = () => {
 
   return (
     <GradientLayout
+      disabled
       className="items-center justify-center p-8"
       showNavbar={false}>
       <div className="w-full flex flex-col items-center">
@@ -34,7 +35,7 @@ const RegisterForm: FC = () => {
           className="w-10/12 max-w-xs"
           alt=""
         />
-        <p className="font-semibold text-lg">Sign up to start your journey</p>
+        <p className="font-semibold text-lg pb-8">Sign up to start your journey</p>
       </div>
       <form
         onSubmit={handleSubmit(registerUser)}

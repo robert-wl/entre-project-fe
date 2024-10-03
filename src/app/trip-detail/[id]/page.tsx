@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trip } from "@/models/trip";
+import FloatActionButton from "@/components/ui/float-action-button";
 
 const tabs = ["Destination", "Itinerary", "Bills"];
 const billFilters = ["All", "Active"];
@@ -116,11 +117,7 @@ const TripDetail: FC<Props> = ({ params: { id } }) => {
               </SelectContent>
             </Select>
             <div className="w-full flex-1">
-              <Button
-                className="fixed bottom-4 right-4 text-3xl rounded-full size-16"
-                onClick={() => router.push(`/trip-detail/${id}/create-bill`)}>
-                +
-              </Button>
+              <FloatActionButton onClick={() => router.push(`/trip-detail/${id}/create-bill`)}>+</FloatActionButton>
             </div>
           </div>
         )}

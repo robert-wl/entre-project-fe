@@ -1,18 +1,17 @@
 "use client";
-import { FC, useEffect, useMemo, useState } from "react";
-import { Nullable } from "@/types/utils";
+import { FC, useMemo } from "react";
 import { Trip } from "@/models/trip";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 import { CreateBillDTO, createBillSchema } from "@/models/schema/bill/create-bill.dto";
 import { zodResolver } from "@hookform/resolvers/zod";
-import BillService from "@/services/bill-service";
-import TripService from "@/services/trip-service";
 import BillDetailForm from "@/app/trip-detail/[id]/create-bill/_components/bill-detail-form";
 import { Input } from "@/components/ui/input";
 import IconCancel from "@/components/icons/IconCancel";
 import GradientLayout from "@/components/layouts/gradient-layout";
 import { Button } from "@/components/ui/button";
+import IconMinus from "@/components/icons/icon-minus";
+import useToastError from "@/hooks/use-toast-error";
 
 interface IProps {
   trip: Trip;
@@ -20,7 +19,6 @@ interface IProps {
 
 const CreateBillForm: FC<IProps> = ({ trip }) => {
   const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -33,18 +31,18 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
       description: "",
       billDetail: [
         {
-          userId: 1,
+          userId: 0,
           items: [{ itemName: "", price: 0, quantity: 0 }],
         },
       ],
     },
     resolver: zodResolver(createBillSchema),
   });
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: "billDetail",
   });
+  const { onError } = useToastError();
 
   const addBillDetail = () => {
     append({
@@ -54,13 +52,13 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
   };
 
   const createBill = async (data: CreateBillDTO) => {
-    const [result, error] = await BillService.createBill(data);
+    console.log(data);
+    // const [result, error] = await BillService.createBill(data);
   };
 
   const values = watch();
 
   const totalPrice = useMemo(() => {
-    console.log(values);
     return values.billDetail.reduce((total, detail) => {
       const itemsTotal = detail.items.reduce((sum, item) => {
         return sum + item.price * item.quantity;
@@ -80,13 +78,13 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
         </button>
       </div>
       <form
-        onSubmit={handleSubmit(createBill)}
-        className="flex flex-col min-h-[calc(100vh-5rem)] h-fit items-center justify-between gap-4">
-        <div className="flex flex-col gap-4 items-center">
+        onSubmit={handleSubmit(createBill, onError)}
+        className="flex flex-col min-h-full flex-grow h-fit items-center justify-between gap-4">
+        <div className="flex flex-col gap-4 min-w-full items-center">
           <Input
             {...register("description")}
             className="py-6 max-w-xl bg-white"
-            placeholder="Bill name"
+            placeholder="Bill description"
           />
           <p className="w-full max-w-xl">Details</p>
           {fields.map((field, index) => (
@@ -95,6 +93,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
               index={index}
               control={control}
               tripMembers={trip?.members ?? []}
+              removeField={remove}
             />
           ))}
           <div className="flex items-center justify-center w-full gap-2">
@@ -102,7 +101,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
               type="button"
               className="text-2xl bg-red-500 hover:bg-red-600 rounded-full size-12"
               onClick={() => remove(fields.length - 1)}>
-              ~
+              <IconMinus />
             </Button>
             <Button
               type="button"

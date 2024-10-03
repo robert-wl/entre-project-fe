@@ -31,6 +31,7 @@ const LoginForm: FC = () => {
 
   return (
     <GradientLayout
+      disabled
       className="items-center justify-center p-8"
       showNavbar={false}>
       <div className="flex flex-col items-center justify-center w-full h-full">
@@ -40,7 +41,7 @@ const LoginForm: FC = () => {
             className="w-10/12 max-w-xs"
             alt=""
           />
-          <p className="font-semibold text-lg">Sign in to continue</p>
+          <p className="font-semibold text-lg pb-8">Sign in to continue</p>
         </div>
         <form
           onSubmit={handleSubmit(login)}
