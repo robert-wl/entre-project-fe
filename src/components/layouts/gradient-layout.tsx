@@ -9,6 +9,7 @@ interface IProps {
   to?: string;
   showNavbar?: boolean;
   className?: string;
+  innerClassName?: string;
 }
 
 const GradientLayout: FC<IProps> = ({
@@ -22,11 +23,10 @@ const GradientLayout: FC<IProps> = ({
   return (
     <div
       className={cn(
-        className,
         disabled ? "" : `bg-gradient-to-t from-[${from}] to-[${to}]`,
         "w-screen justify-between min-h-screen h-full flex flex-col items-center",
       )}>
-      <div>
+      <div className={cn("flex flex-col flex-grow h-full min-h-full w-full", className)}>
         {showNavbar && <Navbar />}
         {children}
       </div>
