@@ -7,7 +7,7 @@ import NextAuth from "next-auth/next";
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    maxAge: 0.25 * 60 * 60,
+    maxAge: 60 * 60,
     strategy: "jwt",
   },
   providers: [
