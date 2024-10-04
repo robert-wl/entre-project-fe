@@ -7,9 +7,10 @@ export default abstract class BaseService {
   private static axiosInstance: AxiosInstance;
 
   private static get axios() {
-    if (!this.axiosInstance) {
+    if (!this.axiosInstance || this.axiosInstance.defaults.headers.common["Authorization"] === undefined) {
       this.axiosInstance = this.getAxiosInstance();
     }
+
     return this.axiosInstance;
   }
 
@@ -26,6 +27,26 @@ export default abstract class BaseService {
   protected static async post<T>(url: string, body: Object): Promise<BackendResponse<T>> {
     try {
       const { data } = await this.axios.post<T>(url, body);
+
+      return [data, null];
+    } catch (error) {
+      return [null, this.handleError(error)];
+    }
+  }
+
+  protected static async put<T>(url: string): Promise<BackendResponse<T>> {
+    try {
+      const { data } = await this.axios.put<T>(url);
+
+      return [data, null];
+    } catch (error) {
+      return [null, this.handleError(error)];
+    }
+  }
+
+  protected static async delete<T>(url: string): Promise<BackendResponse<T>> {
+    try {
+      const { data } = await this.axios.delete<T>(url);
 
       return [data, null];
     } catch (error) {
