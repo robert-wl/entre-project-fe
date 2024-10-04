@@ -35,7 +35,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
       name: "",
       billDetail: [
         {
-          userId: "",
+          userId: -1,
           billItems: [{ itemName: "", price: 0, quantity: 0 }],
         },
       ],
@@ -49,7 +49,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
 
   const addBillDetail = () => {
     append({
-      userId: "",
+      userId: -1,
       billItems: [{ itemName: "", price: 0, quantity: 0 }],
     });
   };
