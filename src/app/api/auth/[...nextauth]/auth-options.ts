@@ -49,6 +49,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id;
         token.token = user.token;
         token.expires = new Date(new Date().getTime() + 0.25 * 60 * 60 * 1000).toISOString();
       }
@@ -65,6 +66,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (session?.user) {
+        session.user.id = token.id;
         session.user.token = token.token;
         session.user.expires = token?.expires;
       }

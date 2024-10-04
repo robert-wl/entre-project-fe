@@ -4,6 +4,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import FloatActionButton from "@/components/ui/float-action-button";
 import { useRouter } from "next/navigation";
 import { Bill } from "@/models/bill";
+import BillItem from "./bill-item";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/auth-options";
 
 const billFilters = ["All", "Active"];
 
@@ -34,6 +37,12 @@ const BillTab: FC<IProps> = ({ tripId, bills }) => {
           ))}
         </SelectContent>
       </Select>
+      {bills.map((bill) => (
+        <BillItem
+          key={bill.id}
+          bill={bill}
+        />
+      ))}
       <div className="w-full flex-1">
         <FloatActionButton onClick={() => router.push(`/trip-detail/${tripId}/create-bill`)}>+</FloatActionButton>
       </div>

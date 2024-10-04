@@ -11,6 +11,7 @@ const CreateBill: FC<Props> = async ({ params: { id } }) => {
   const [response, error] = await TripService.getTripWithDetails(Number.parseInt(id));
 
   if (error) {
+    console.log(error);
     redirect("/home");
   }
 

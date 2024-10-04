@@ -1,15 +1,8 @@
-"use client";
-import React, { useLayoutEffect } from "react";
-import { signOut } from "next-auth/react";
+import React from "react";
+import LogoutContent from "./_components/logout-content";
 
 const Page: React.FC = () => {
-  useLayoutEffect(() => {
-    signOut({
-      redirect: true,
-      callbackUrl: "/login",
-    }).then();
-  }, []);
-  return <></>;
+  return <LogoutContent />;
 };
 
 export default Page;
