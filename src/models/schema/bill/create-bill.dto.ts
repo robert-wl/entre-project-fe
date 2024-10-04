@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 export const createBillSchema = z.object({
-  description: z.string().min(1, "Description is required"),
+  name: z.string().min(1, "Description is required"),
   tripId: z.number(),
   billDetail: z
     .array(
       z.object({
-        userId: z.string().min(1, "You must choose a user"),
-        items: z
+        userId: z.number().min(1, "You must choose a user"),
+        billItems: z
           .array(
             z.object({
               itemName: z.string().min(1, "Item name is required"),

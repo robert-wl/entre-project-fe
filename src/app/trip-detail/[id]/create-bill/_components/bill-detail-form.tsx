@@ -17,7 +17,7 @@ interface IProps {
 const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeField }) => {
   const { fields, append, remove } = useFieldArray({
     control,
-    name: `billDetail[${index}].items`,
+    name: `billDetail[${index}].billItems`,
   });
 
   const addBillItem = () => {
@@ -40,14 +40,14 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeFi
           render={({ field }) => (
             <Select
               value={field.value}
-              onValueChange={(value) => field.onChange(value)}>
+              onValueChange={(value) => field.onChange(+value)}>
               <SelectTrigger className="w-32 bg-white">
                 <SelectValue placeholder="Name..." />
               </SelectTrigger>
               <SelectContent ref={field.ref}>
                 {tripMembers.map((member) => (
                   <SelectItem
-                    value={member.id.toString()}
+                    value={member.id}
                     key={member.id}>
                     {member.name}
                   </SelectItem>
@@ -64,12 +64,12 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeFi
           <Input
             className="flex-1 text-xs !py-0.5 !px-1"
             placeholder="Item name"
-            {...control.register(`billDetail[${index}].items[${itemIndex}].itemName`)}
+            {...control.register(`billDetail[${index}].billItems[${itemIndex}].itemName`)}
           />
           <Input
             className="w-8 text-xs !py-0.5 !px-1"
             type="number"
-            {...control.register(`billDetail[${index}].items[${itemIndex}].price`, {
+            {...control.register(`billDetail[${index}].billItems[${itemIndex}].price`, {
               valueAsNumber: true,
             })}
           />
@@ -77,7 +77,7 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeFi
           <Input
             className="flex-1 text-xs !py-0.5 !px-1"
             type="number"
-            {...control.register(`billDetail[${index}].items[${itemIndex}].quantity`, {
+            {...control.register(`billDetail[${index}].billItems[${itemIndex}].quantity`, {
               valueAsNumber: true,
             })}
           />

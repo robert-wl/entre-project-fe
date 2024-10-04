@@ -32,11 +32,11 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
   } = useForm<CreateBillDTO>({
     defaultValues: {
       tripId: +trip.id,
-      description: "",
+      name: "",
       billDetail: [
         {
           userId: "",
-          items: [{ itemName: "", price: 0, quantity: 0 }],
+          billItems: [{ itemName: "", price: 0, quantity: 0 }],
         },
       ],
     },
@@ -50,7 +50,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
   const addBillDetail = () => {
     append({
       userId: "",
-      items: [{ itemName: "", price: 0, quantity: 0 }],
+      billItems: [{ itemName: "", price: 0, quantity: 0 }],
     });
   };
 
@@ -68,7 +68,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
 
   const totalPrice = useMemo(() => {
     return values.billDetail.reduce((total, detail) => {
-      const itemsTotal = detail.items.reduce((sum, item) => {
+      const itemsTotal = detail.billItems.reduce((sum, item) => {
         return sum + item.price * item.quantity;
       }, 0);
       return total + itemsTotal;
@@ -90,9 +90,9 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
         className="flex flex-col min-h-full flex-grow h-fit items-center justify-between gap-4">
         <div className="flex flex-col gap-4 min-w-full items-center">
           <Input
-            {...register("description")}
+            {...register("name")}
             className="py-6 max-w-xl bg-white"
-            placeholder="Bill description"
+            placeholder="Bill name"
           />
           <p className="w-full max-w-xl">Details</p>
           {fields.map((field, index) => (
