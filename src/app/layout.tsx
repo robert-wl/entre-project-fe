@@ -2,7 +2,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/auth-options";
-import ClientSessionProvider from "@/components/providers/ClientSessionProvider";
+import ClientSessionProvider from "@/components/providers/client-session-provider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 

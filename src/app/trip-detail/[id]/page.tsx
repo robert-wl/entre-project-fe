@@ -2,11 +2,11 @@ import { FC } from "react";
 import TripService from "@/services/trip-service";
 import { redirect } from "next/navigation";
 import GradientLayout from "@/components/layouts/gradient-layout";
-import { cn } from "@/lib/utils";
 import TripDetailHeader from "@/app/trip-detail/[id]/_components/trip-detail-header";
 import Link from "next/link";
 import BillTab from "@/app/trip-detail/[id]/_components/bill-tab";
 import BillService from "@/services/bill-service";
+import { cn } from "@/lib/utils";
 
 interface Props {
   params: { id: number };

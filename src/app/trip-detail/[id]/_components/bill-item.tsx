@@ -1,11 +1,10 @@
 "use client";
 import IconDotsVertical from "@/components/icons/icon-dots-vertical";
-import { cn } from "@/lib/utils";
 import { Bill } from "@/models/bill";
-import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FC } from "react";
+import { cn } from "@/lib/utils";
 
 interface IProps {
   bill: Bill;

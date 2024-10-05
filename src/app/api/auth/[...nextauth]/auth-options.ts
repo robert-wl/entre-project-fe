@@ -2,7 +2,6 @@ import { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import AuthService from "@/services/auth-service";
-import NextAuth from "next-auth/next";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -51,7 +50,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.token = user.token;
-        token.expires = new Date(new Date().getTime() + 0.25 * 60 * 60 * 1000).toISOString();
+        token.expires = new Date(new Date().getTime() + 60 * 60 * 1000).toISOString();
       }
 
       if (token.expires && new Date() > new Date(token.expires)) {

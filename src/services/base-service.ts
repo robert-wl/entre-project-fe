@@ -76,6 +76,7 @@ export default abstract class BaseService {
 
   private static handleError(error: any) {
     if (axios.isAxiosError(error)) {
+      console.log("THIS IS ERROR", error);
       if (error.response?.status === 401) {
         if (typeof window !== "undefined") {
           window.location.href = "/login";
