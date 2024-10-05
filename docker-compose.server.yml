@@ -1,0 +1,8 @@
+services:
+  frontend:
+    image: yahkerobertkertasnya/splanngo-fe:latest
+    tty: true
+    build: .
+    ports:
+      - "3636:3000"
+    restart: on-failure
