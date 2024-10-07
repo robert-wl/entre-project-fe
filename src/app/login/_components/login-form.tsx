@@ -9,11 +9,14 @@ import GradientLayout from "@/components/layouts/gradient-layout";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import useToast, { ToastType } from "@/hooks/use-toast";
 
 const LoginForm: FC = () => {
   const { register, handleSubmit } = useForm<LoginDTO>({
     resolver: zodResolver(loginSchema),
   });
+
+  const { trigger } = useToast();
 
   const router = useRouter();
 
@@ -26,6 +29,9 @@ const LoginForm: FC = () => {
 
     if (!response?.error) {
       router.push("/home");
+    }
+    else {
+      trigger(response.error, ToastType.Error);
     }
   };
 

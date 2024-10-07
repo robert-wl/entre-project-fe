@@ -7,7 +7,7 @@ import { CreateBillDTO, createBillSchema } from "@/models/schema/bill/create-bil
 import { zodResolver } from "@hookform/resolvers/zod";
 import BillDetailForm from "@/app/trip-detail/[id]/create-bill/_components/bill-detail-form";
 import { Input } from "@/components/ui/input";
-import IconCancel from "@/components/icons/IconCancel";
+import IconCancel from "@/components/icons/icon-cancel";
 import GradientLayout from "@/components/layouts/gradient-layout";
 import { Button } from "@/components/ui/button";
 import IconMinus from "@/components/icons/icon-minus";

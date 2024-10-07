@@ -5,8 +5,7 @@ import FloatActionButton from "@/components/ui/float-action-button";
 import { useRouter } from "next/navigation";
 import { Bill } from "@/models/bill";
 import BillItem from "./bill-item";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/auth-options";
+import EmptyTab from "./empty-tab";
 
 const billFilters = ["All", "Active"];
 
@@ -18,6 +17,12 @@ interface IProps {
 const BillTab: FC<IProps> = ({ tripId, bills }) => {
   const [selectedBillFilter, setSelectedBillFilter] = useState<string>(billFilters[0]);
   const router = useRouter();
+
+  if (bills.length === 0) {
+    return (
+      <EmptyTab tripId={tripId} tabName="Add Bill" routeName="create-bill" />
+    )
+  }
 
   return (
     <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">

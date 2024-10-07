@@ -1,5 +1,5 @@
 "use client";
-import IconCancel from "@/components/icons/IconCancel";
+import IconCancel from "@/components/icons/icon-cancel";
 import GradientLayout from "@/components/layouts/gradient-layout";
 import { Input } from "@/components/ui/input";
 import { FC } from "react";

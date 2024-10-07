@@ -9,17 +9,22 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import GradientLayout from "@/components/layouts/gradient-layout";
+import useToast, { ToastType } from "@/hooks/use-toast";
 
 const RegisterForm: FC = () => {
   const { register, handleSubmit } = useForm<RegisterDTO>({
     resolver: zodResolver(registerSchema),
   });
+  const { trigger } = useToast();
   const router = useRouter();
 
   const registerUser = async (data: RegisterDTO) => {
     const [_, error] = await AuthService.register(data);
 
-    if (error) return;
+    if (error) {
+      trigger(error.message, ToastType.Error);
+      return;
+    }
 
     router.push("/login");
   };

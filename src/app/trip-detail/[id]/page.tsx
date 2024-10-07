@@ -7,6 +7,7 @@ import Link from "next/link";
 import BillTab from "@/app/trip-detail/[id]/_components/bill-tab";
 import BillService from "@/services/bill-service";
 import { cn } from "@/lib/utils";
+import DestinationTab from "./_components/destination-tab";
 
 interface Props {
   params: { id: number };
@@ -40,6 +41,15 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
         />
       );
     }
+    else if (currentTab === "destination") {
+
+      return (
+        <DestinationTab
+          tripId={trip.id}
+          destinations={[]}
+        />
+      )
+    }
   };
 
   return (
@@ -49,7 +59,6 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
       <div className="w-full h-full flex flex-col flex-1">
         <div className="w-full flex justify-evenly">
           {pageTabs.map((tab) => {
-            console.log(tab, currentTab);
             return (
               <Link
                 href={`/trip-detail/${id}?tab=${tab}`}

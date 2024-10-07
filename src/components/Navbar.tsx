@@ -1,7 +1,7 @@
 "use client";
 
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import IconMenu from "@/components/icons/IconMenu";
+import IconMenu from "@/components/icons/icon-menu";
 import Link from "next/link";
 
 const Navbar: React.FC = () => {

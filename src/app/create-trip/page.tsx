@@ -4,6 +4,7 @@ import Protector from "@/components/middleware/protector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import useToast, { ToastType } from "@/hooks/use-toast";
 import { CreateTripDTO, createTripSchema } from "@/models/schema/trip/create-trip.dto";
 import TripService from "@/services/trip-service";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,12 +15,14 @@ const CreateTrip: React.FC = () => {
   const { register, handleSubmit } = useForm<CreateTripDTO>({
     resolver: zodResolver(createTripSchema),
   });
+  const { trigger } = useToast();
   const router = useRouter();
 
   const createTrip = async (data: CreateTripDTO) => {
     const [result, error] = await TripService.createTrip(data);
 
     if (error) {
+      trigger(error.message, ToastType.Error);
       return;
     }
 

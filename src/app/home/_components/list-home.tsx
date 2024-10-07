@@ -12,6 +12,7 @@ interface IProps {
 
 const ListHome: FC<IProps> = ({ tripList }) => {
   const router = useRouter();
+
   return (
     <GradientLayout>
       <div className="flex flex-wrap justify-center w-full gap-6 p-6">
