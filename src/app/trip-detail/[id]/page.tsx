@@ -8,6 +8,7 @@ import BillTab from "@/app/trip-detail/[id]/_components/bill-tab";
 import BillService from "@/services/bill-service";
 import { cn } from "@/lib/utils";
 import DestinationTab from "./_components/destination-tab";
+import DestinationService from "@/services/destination-service";
 
 interface Props {
   params: { id: number };
@@ -42,11 +43,16 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
       );
     }
     else if (currentTab === "destination") {
+      const [response, error] = await DestinationService.getDestinations(trip.id);
+
+      if (error) {
+        redirect("/home");
+      }
 
       return (
         <DestinationTab
           tripId={trip.id}
-          destinations={[]}
+          destinations={response.result}
         />
       )
     }

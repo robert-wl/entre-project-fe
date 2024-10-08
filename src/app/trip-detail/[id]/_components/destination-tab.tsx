@@ -1,12 +1,12 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import EmptyTab from "./empty-tab";
+import { Destination } from "@/models/destination";
 
 interface IProps {
     tripId: number;
-    destinations: [];
+    destinations: Destination[];
 }
 
 const DestinationTab: FC<IProps> = ({
@@ -14,6 +14,8 @@ const DestinationTab: FC<IProps> = ({
     destinations
 }) => {
     const router = useRouter();
+    console.log(destinations);
+    
     if (destinations.length === 0) {
         return (
             <EmptyTab tripId={tripId} tabName="Add Destination" routeName="create-destination" />
@@ -21,11 +23,7 @@ const DestinationTab: FC<IProps> = ({
     }
     return (
         <div>
-            {destinations.map((destination) => (
-                <div>
-
-                </div>
-            ))}
+            
         </div>
     )
 }
