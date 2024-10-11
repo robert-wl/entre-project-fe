@@ -11,8 +11,6 @@ const Page: FC<IProps> = async ({ params: { id, billId } }) => {
   const [response, error] = await BillService.getBill(billId);
 
   if (error) {
-    console.error(error);
-
     redirect(`trip-detail/${id}`);
   }
   return <BillContent bill={response.result} />;

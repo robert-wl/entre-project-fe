@@ -1,10 +1,7 @@
 "use client";
 import IconCancel from "@/components/icons/icon-cancel";
 import GradientLayout from "@/components/layouts/gradient-layout";
-import { Input } from "@/components/ui/input";
 import { FC } from "react";
-import BillDetailForm from "../../../create-bill/_components/bill-detail-form";
-import IconMinus from "@/components/icons/icon-minus";
 import { Bill } from "@/models/bill";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -77,7 +74,7 @@ const BillContent: FC<IProps> = ({ bill }) => {
             <p className="w-full max-w-xl text-gray-500 font-bold text-center">You need to pay: {myBill.totalPrice}</p>
             <Button
               onClick={confirmBill}
-              className="w-full rounded-full shadow-xl text-sm font-bold py-6"
+              className="w-full rounded-full shadow-xl text-lg font-bold py-6"
               type="submit">
               Confirm Payment
             </Button>

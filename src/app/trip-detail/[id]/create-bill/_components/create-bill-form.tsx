@@ -87,7 +87,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
       </div>
       <form
         onSubmit={handleSubmit(createBill, onError)}
-        className="flex flex-col min-h-full flex-grow h-fit items-center justify-between gap-4">
+        className="flex flex-col h-full flex-grow items-center justify-between gap-4">
         <div className="flex flex-col gap-4 min-w-full items-center">
           <Input
             {...register("name")}
@@ -125,7 +125,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
             <p>{totalPrice}</p>
           </div>
           <Button
-            className="w-full rounded-full shadow-xl text-sm font-bold py-2"
+            className="w-full rounded-full shadow-xl text-lg font-bold py-6"
             type="submit">
             Add bill
           </Button>

@@ -9,6 +9,7 @@ import BillService from "@/services/bill-service";
 import { cn } from "@/lib/utils";
 import DestinationTab from "./_components/destination-tab";
 import DestinationService from "@/services/destination-service";
+import ItineraryTab from "./_components/itinerary-tab";
 
 interface Props {
   params: { id: number };
@@ -41,8 +42,14 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
           bills={response.result}
         />
       );
-    }
-    else if (currentTab === "destination") {
+    } else if (currentTab === "itinerary") {
+      return (
+        <ItineraryTab
+          tripId={trip.id}
+          itineraries={[]}
+        />
+      );
+    } else if (currentTab === "destination") {
       const [response, error] = await DestinationService.getDestinations(trip.id);
 
       if (error) {
@@ -54,7 +61,7 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
           tripId={trip.id}
           destinations={response.result}
         />
-      )
+      );
     }
   };
 

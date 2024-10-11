@@ -12,7 +12,7 @@ const CreateBill: FC<Props> = async ({ params: { id } }) => {
 
   if (error) {
     console.log(error);
-    redirect("/home");
+    return redirect("/home");
   }
 
   return <CreateBillForm trip={response.result} />;

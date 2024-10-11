@@ -1,4 +1,3 @@
-import IconMinus from "@/components/icons/icon-minus";
 import { Input } from "@/components/ui/input";
 import { BillDetail } from "@/models/bill";
 import { FC } from "react";

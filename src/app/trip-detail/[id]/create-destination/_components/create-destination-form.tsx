@@ -13,70 +13,102 @@ import { Trip } from "@/models/trip";
 import DestinationService from "@/services/destination-service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import { useForm } from "react-hook-form";
 
 interface IProps {
-    trip: Trip;
+  trip: Trip;
 }
 
 const CreateDestinationForm: FC<IProps> = ({ trip }) => {
-    const router = useRouter();
-    const { trigger } = useToast();
-    const destinationImageInputRef = useRef<HTMLInputElement>(null);
-    const { register, handleSubmit, setValue, watch } = useForm<CreateDestinationDTO>({
-        resolver: zodResolver(createDestinationSchema),
-        defaultValues: {
-            destination: "",
-            image: "",
-            notes: "",
-            tripId: trip.id
-        }
-    });
+  const router = useRouter();
+  const { trigger } = useToast();
+  const destinationImageInputRef = useRef<HTMLInputElement>(null);
+  const { register, handleSubmit, setValue, watch } = useForm<CreateDestinationDTO>({
+    resolver: zodResolver(createDestinationSchema),
+    defaultValues: {
+      destination: "",
+      notes: "",
+      image: "",
+      tripId: trip.id,
+    },
+  });
 
-    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files;
-        if (file && file.length > 0) {
-            const base64image = await convertToBase64(file[0]);
-            setValue('image', base64image);
-        }
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files;
+    if (file && file.length > 0) {
+      const base64image = await convertToBase64(file[0]);
+      console.log(base64image.length);
+
+      setValue("image", base64image);
     }
+  };
 
-    const createDestination = async (data: CreateDestinationDTO) => {
-        const [_, error] = await DestinationService.createDestination(data);
-        if (error?.message) {
-            trigger(error.message, ToastType.Error);
-        }
-        router.back();
+  const createDestination = async (data: CreateDestinationDTO) => {
+    const [_, error] = await DestinationService.createDestination(data);
+    if (error?.message) {
+      trigger(error.message, ToastType.Error);
     }
+    router.back();
+  };
 
-    return (
-        <GradientLayout showNavbar={false} className="p-8 gap-4">
-            <div className="w-full flex justify-between py-2">
-                <button className="text-lg font-semibold btn">Add a destination</button>
-                <button onClick={router.back}>
-                    <IconCancel className="size-full" />
-                </button>
-            </div>
-            <form onSubmit={handleSubmit(createDestination)} className="flex flex-col w-full gap-4">
-                <Input {...register('destination')} placeholder="Destination" className="bg-white py-6" />
-                <Textarea {...register('notes')} placeholder="Notes" className="bg-white py-4" />
-                <Input {...register('image')} type="file" className="hidden" accept="image/*" ref={destinationImageInputRef} onChange={handleImageChange} />
-                {watch().image ?
-                    <img onClick={() => destinationImageInputRef.current?.click()}
-                        src={`${watch().image}`}
-                        className="h-32 w-full object-cover"
-                    /> :
-                    <Button type="button" onClick={() => destinationImageInputRef.current?.click()} className="bg-white h-32 flex flex-col">
-                        <IconImageUpload className="size-6 text-gray-400" />
-                        <p className="text-gray-400 text-base underline">Upload image</p>
-                    </Button>}
-                <Button type="submit" className="rounded-full p-6 font-bold">
-                    Add destination
-                </Button>
-            </form>
-        </GradientLayout>
-    )
-}
+  return (
+    <GradientLayout
+      showNavbar={false}
+      className="p-8 gap-4">
+      <div className="w-full flex justify-between py-2">
+        <button className="text-lg font-semibold">Add a destination</button>
+        <button onClick={router.back}>
+          <IconCancel className="size-full" />
+        </button>
+      </div>
+      <form
+        onSubmit={handleSubmit(createDestination)}
+        className="flex flex-col w-full gap-4 flex-1">
+        <Input
+          {...register("destination")}
+          placeholder="Destination"
+          className="bg-white py-6"
+        />
+        <Textarea
+          {...register("notes")}
+          placeholder="Notes"
+          className="bg-white py-4"
+        />
+        <Input
+          {...register("image")}
+          type="file"
+          className="hidden"
+          accept="image/*"
+          ref={destinationImageInputRef}
+          onChange={handleImageChange}
+        />
+        {watch().image ? (
+          <img
+            onClick={() => destinationImageInputRef.current?.click()}
+            src={watch().image}
+            className="h-32 w-full object-cover"
+            alt="Uploaded"
+          />
+        ) : (
+          <Button
+            type="button"
+            onClick={() => destinationImageInputRef.current?.click()}
+            className="bg-white h-32 flex flex-col">
+            <IconImageUpload className="size-6 text-gray-400" />
+            <p className="text-gray-400 text-base underline">Upload image</p>
+          </Button>
+        )}
+        <div className="flex flex-col flex-1 justify-end">
+          <Button
+            type="submit"
+            className="rounded-full p-6 font-bold">
+            Add destination
+          </Button>
+        </div>
+      </form>
+    </GradientLayout>
+  );
+};
 
 export default CreateDestinationForm;

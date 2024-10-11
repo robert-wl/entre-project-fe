@@ -1,7 +1,8 @@
 export interface Destination {
-    id: number;
-    name: string;
-    description: string;
-    tripId: number;
-    image: string;
+  id: number;
+  destination: string;
+  notes: string;
+  tripId: number;
+  image: string;
+  destinationOwnerId: number;
 }

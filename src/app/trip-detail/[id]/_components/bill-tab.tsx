@@ -20,9 +20,15 @@ const BillTab: FC<IProps> = ({ tripId, bills }) => {
 
   if (bills.length === 0) {
     return (
-      <EmptyTab tripId={tripId} tabName="Add Bill" routeName="create-bill" />
-    )
+      <EmptyTab
+        tripId={tripId}
+        tabName="Add Bill"
+        routeName="create-bill"
+      />
+    );
   }
+
+  console.log(bills[0]);
 
   return (
     <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">

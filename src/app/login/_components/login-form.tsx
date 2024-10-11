@@ -29,8 +29,7 @@ const LoginForm: FC = () => {
 
     if (!response?.error) {
       router.push("/home");
-    }
-    else {
+    } else {
       trigger(response.error, ToastType.Error);
     }
   };
