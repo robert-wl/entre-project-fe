@@ -1,11 +1,11 @@
 import { CreateDestinationDTO } from "@/models/schema/destination/create-destination.dto";
 import BaseService from "./base-service";
-import { Destination } from "@/models/destination";
-import { GetDestinationsResponse } from "@/models/responses/destination/get-destinations-response";
+import { GetDestinationsResponse } from "@/models/responses/destinations/get-destinations-response";
+import { CreateDestinationResponse } from "@/models/responses/destinations/create-destinations-response";
 
 export default class DestinationService extends BaseService {
   public static async createDestination(dto: CreateDestinationDTO) {
-    return this.post("/destinations", dto);
+    return this.post<CreateDestinationResponse>("/destinations", dto);
   }
 
   public static async getDestinations(tripId: number) {

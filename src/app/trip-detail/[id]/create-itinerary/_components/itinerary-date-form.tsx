@@ -29,17 +29,39 @@ const ItineraryDateForm: FC<IProps> = ({ control, handleNavigate }) => {
       </div>
       <p>Enter your trip start and end date</p>
       <div className="flex w-full gap-2">
-        <Input
-          {...control.register("startDate", { valueAsDate: true })}
-          type="date"
-          className="py-6 bg-white"
-          placeholder="Start date"
+        <Controller
+          name="startDate"
+          control={control}
+          render={({ field }) => (
+            <Input
+              {...field}
+              type="date"
+              className="py-6 bg-white"
+              placeholder="Start date"
+              onChange={(e) => {
+                const dateValue = e.target.value ? new Date(e.target.value) : null;
+                field.onChange(dateValue);
+              }}
+              value={field.value ? field.value.toISOString().split("T")[0] : ""}
+            />
+          )}
         />
-        <Input
-          {...control.register("endDate", { valueAsDate: true })}
-          type="date"
-          className="py-6 bg-white"
-          placeholder="End date"
+        <Controller
+          name="endDate"
+          control={control}
+          render={({ field }) => (
+            <Input
+              {...field}
+              type="date"
+              className="py-6 bg-white"
+              placeholder="End date"
+              onChange={(e) => {
+                const dateValue = e.target.value ? new Date(e.target.value) : null;
+                field.onChange(dateValue);
+              }}
+              value={field.value ? field.value.toISOString().split("T")[0] : ""}
+            />
+          )}
         />
       </div>
       <div className="flex flex-col flex-1 justify-end">
