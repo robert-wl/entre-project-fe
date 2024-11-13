@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
-import EmptyTab from "./empty-tab";
+import EmptyTab from "../empty-tab";
 import { Destination } from "@/models/destination";
 import DestinationItem from "./destination-item";
 import FloatActionButton from "@/components/ui/float-action-button";

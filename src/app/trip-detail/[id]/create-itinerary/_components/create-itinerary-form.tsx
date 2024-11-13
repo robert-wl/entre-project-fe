@@ -9,15 +9,20 @@ import { Trip } from "@/models/trip";
 import ItineraryItemForm from "./itinerary-item-form";
 import { useSession } from "next-auth/react";
 import ItineraryService from "@/services/itinerary-service";
+import useToast, { ToastType } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   trip: Trip;
 }
 
 const CreateItineraryForm: FC<IProps> = ({ trip }) => {
+  const [step, setStep] = useState(1);
+
   const { data: session } = useSession();
   const userId = session?.user.id ? +session?.user.id : -1;
-  const [step, setStep] = useState(1);
+  const { trigger } = useToast();
+  const router = useRouter();
 
   const { handleSubmit, getValues, setValue, control } = useForm<CreateItineraryDTO>({
     resolver: zodResolver(createItinerarySchema),
@@ -60,9 +65,13 @@ const CreateItineraryForm: FC<IProps> = ({ trip }) => {
   };
 
   const createItinerary = async (data: CreateItineraryDTO) => {
-    console.log(data);
+    const [_, error] = await ItineraryService.createItinerary(data);
 
-    const result = await ItineraryService.createItinerary(data);
+    if (error?.error) {
+      trigger(error.message, ToastType.Error);
+    }
+
+    router.back();
   };
 
   return step === 1 ? (

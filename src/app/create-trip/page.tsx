@@ -1,6 +1,5 @@
 "use client";
 import GradientLayout from "@/components/layouts/gradient-layout";
-import Protector from "@/components/middleware/protector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -19,7 +18,7 @@ const CreateTrip: React.FC = () => {
   const router = useRouter();
 
   const createTrip = async (data: CreateTripDTO) => {
-    const [result, error] = await TripService.createTrip(data);
+    const [_, error] = await TripService.createTrip(data);
 
     if (error) {
       trigger(error.message, ToastType.Error);

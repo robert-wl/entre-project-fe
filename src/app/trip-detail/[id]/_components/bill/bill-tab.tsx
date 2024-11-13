@@ -5,7 +5,7 @@ import FloatActionButton from "@/components/ui/float-action-button";
 import { useRouter } from "next/navigation";
 import { Bill } from "@/models/bill";
 import BillItem from "./bill-item";
-import EmptyTab from "./empty-tab";
+import EmptyTab from "../empty-tab";
 
 const billFilters = ["All", "Active"];
 
@@ -27,8 +27,6 @@ const BillTab: FC<IProps> = ({ tripId, bills }) => {
       />
     );
   }
-
-  console.log(bills[0]);
 
   return (
     <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">

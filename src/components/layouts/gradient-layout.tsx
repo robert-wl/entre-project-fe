@@ -27,7 +27,7 @@ const GradientLayout: FC<IProps> = ({
   return (
     <div
       style={!disabled ? backgroundStyle : {}}
-      className={cn("w-screen justify-between min-h-screen h-full flex flex-col items-center")}>
+      className={cn("w-screen justify-between h-screen flex flex-col items-center")}>
       <div className={cn("flex flex-col flex-grow h-full min-h-full w-full", className)}>
         {showNavbar && <Navbar />}
         {children}

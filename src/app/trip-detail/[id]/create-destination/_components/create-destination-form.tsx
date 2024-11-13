@@ -38,8 +38,6 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
     const file = e.target.files;
     if (file && file.length > 0) {
       const base64image = await convertToBase64(file[0]);
-      console.log(base64image.length);
-
       setValue("image", base64image);
     }
   };
