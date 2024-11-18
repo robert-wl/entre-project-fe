@@ -12,6 +12,7 @@ import DestinationService from "@/services/destination-service";
 import ItineraryTab from "./_components/itinerary/itinerary-tab";
 import ItineraryService from "@/services/itinerary-service";
 import AlbumTab from "./_components/album/album-tab";
+import AlbumService from "@/services/album-service";
 
 interface Props {
   params: { id: number };
@@ -71,9 +72,15 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
         />
       );
     } else if (currentTab === "albums") {
+      const [response, error] = await AlbumService.getAlbums(trip.id);
+
+      if (error) {
+        redirect("/home");
+      }
+
       return (
         <AlbumTab
-          albums={[]}
+          albums={response.result}
           tripId={trip.id}
         />
       );

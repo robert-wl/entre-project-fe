@@ -26,6 +26,7 @@ const CreateTrip: React.FC = () => {
     }
 
     router.push("/home");
+    router.refresh();
   };
 
   return (

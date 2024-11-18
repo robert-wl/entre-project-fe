@@ -4,7 +4,7 @@ import EmptyHome from "./_components/empty-home";
 import ListHome from "./_components/list-home";
 
 const Home: FC = async () => {
-  const [response, error] = await TripService.getMyTrips();
+  const [response, _] = await TripService.getMyTrips();
 
   if (response && response?.result.length === 0) {
     return <EmptyHome />;

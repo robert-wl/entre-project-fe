@@ -1,5 +1,5 @@
-import { AlbumDetail } from "@/models/album";
+import { Album } from "@/models/album";
 
 export interface GetAlbumDetailsResponse {
-  result: AlbumDetail[];
+  result: Album;
 }

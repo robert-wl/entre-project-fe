@@ -8,6 +8,7 @@ interface IProps {
   from?: string;
   to?: string;
   showNavbar?: boolean;
+  showFooter?: boolean;
   className?: string;
   innerClassName?: string;
 }
@@ -16,6 +17,7 @@ const GradientLayout: FC<IProps> = ({
   children,
   disabled = false,
   showNavbar = true,
+  showFooter = true,
   from = "rgba(0,217,166,0.2)",
   to = "rgba(255,255,255,0.1)",
   className,
@@ -32,7 +34,7 @@ const GradientLayout: FC<IProps> = ({
         {showNavbar && <Navbar />}
         {children}
       </div>
-      <p className="py-3 text-gray-500 text-sm font-poppins">© SplanNGo All rights reserved</p>
+      {showFooter && <p className="py-3 text-gray-500 text-sm font-poppins">© SplanNGo All rights reserved</p>}
     </div>
   );
 };
