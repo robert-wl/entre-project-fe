@@ -1,20 +1,45 @@
-import { ItineraryItem } from "@/models/itinerary";
+import { Input } from "@/components/ui/input";
+import { EditItineraryDetailDTO } from "@/models/schema/itinerary/edit-itinerary-detail.dto";
 import { FC } from "react";
+import { Control, Controller } from "react-hook-form";
 
 interface IProps {
-    item: ItineraryItem
+  control: Control<EditItineraryDetailDTO>;
+  index: number;
 }
 
-const ItineraryItemCard: FC<IProps> = ({
-    item
-}) => {
-    return (
-        <div className="flex gap-1">
-            <p className="text-gray-500 font-semibold">{item.startHour} - </p>
-            <p className="text-gray-500 font-semibold">{item.endHour} - </p>
-            <p className="text-gray-500">{item.detailName}</p>
+const ItineraryItemCard: FC<IProps> = ({ control, index }) => {
+  return (
+    <Controller
+      control={control}
+      name={`itineraryItems.${index}`}
+      render={({ field }) => (
+        <div className="flex gap-1 items-center">
+          <Input
+            className="flex-1"
+            {...control.register(`itineraryItems.${index}.startHour`)}
+            placeholder="Start hour"
+          />
+
+          <p>-</p>
+
+          <Input
+            className="flex-1"
+            {...control.register(`itineraryItems.${index}.endHour`)}
+            placeholder="End hour"
+          />
+
+          <p>-</p>
+
+          <Input
+            className="flex-[2]"
+            {...control.register(`itineraryItems.${index}.detailName`)}
+            placeholder="Detail name"
+          />
         </div>
-    );
-}
+      )}
+    />
+  );
+};
 
 export default ItineraryItemCard;

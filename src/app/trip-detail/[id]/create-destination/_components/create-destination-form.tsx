@@ -47,7 +47,7 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
     if (error?.message) {
       trigger(error.message, ToastType.Error);
     }
-    router.push(`/trip-detail/${trip.id}`);
+    router.push(`/trip-detail/${trip.id}?tab=destination`);
     router.refresh();
   };
 
