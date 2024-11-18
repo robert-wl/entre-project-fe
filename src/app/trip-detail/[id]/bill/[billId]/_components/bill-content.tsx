@@ -39,6 +39,7 @@ const BillContent: FC<IProps> = ({ bill }) => {
       trigger("Failed to confirm payment", ToastType.Error);
     }
 
+    trigger("Bill confirmed successfully", ToastType.Success);
     router.refresh();
   };
 

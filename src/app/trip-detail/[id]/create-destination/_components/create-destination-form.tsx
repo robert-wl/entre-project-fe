@@ -50,7 +50,7 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
       return;
     }
     trigger("Destination created successfully", ToastType.Success);
-    router.push(`/trip-detail/${trip.id}?tab=destination`);
+    router.replace(`/trip-detail/${trip.id}?tab=destination`);
     router.refresh();
   };
 

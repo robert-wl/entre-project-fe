@@ -61,7 +61,8 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
       trigger("Error when creating bill", ToastType.Error);
     }
 
-    router.push(`/trip-detail/${trip.id}`);
+    trigger("Bill created successfully", ToastType.Success);
+    router.replace(`/trip-detail/${trip.id}`);
     router.refresh();
   };
 

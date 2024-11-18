@@ -47,7 +47,8 @@ const EditDestinationForm: FC<IProps> = ({ destination }) => {
     if (error?.message) {
       trigger(error.message, ToastType.Error);
     }
-    router.push(`/trip-detail/${destination.tripId}`);
+    trigger("Destination edited successfully", ToastType.Success);
+    router.replace(`/trip-detail/${destination.tripId}`);
     router.refresh();
   };
 
