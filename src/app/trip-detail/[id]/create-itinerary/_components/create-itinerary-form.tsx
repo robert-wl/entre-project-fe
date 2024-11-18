@@ -69,6 +69,7 @@ const CreateItineraryForm: FC<IProps> = ({ trip }) => {
       trigger(error.message, ToastType.Error);
     }
 
+    trigger("Itinerary created successfully", ToastType.Success);
     router.push(`/trip-detail/${trip.id}?tab=itinerary`);
     router.refresh();
   };

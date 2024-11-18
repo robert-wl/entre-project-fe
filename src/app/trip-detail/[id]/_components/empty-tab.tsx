@@ -15,7 +15,7 @@ const EmptyTab: FC<IProps> = ({ tripId, tabName, routeName }) => {
     <div className="w-full h-full flex justify-center items-center">
       <Button
         onClick={() => router.push(`/trip-detail/${tripId}/${routeName}`)}
-        className="rounded-full font-bold p-6">
+        className="rounded-full font-bold py-6 px-8">
         + {tabName}
       </Button>
     </div>

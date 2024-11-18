@@ -24,6 +24,7 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
   const router = useRouter();
   const { trigger } = useToast();
   const destinationImageInputRef = useRef<HTMLInputElement>(null);
+
   const { register, handleSubmit, setValue, watch } = useForm<CreateDestinationDTO>({
     resolver: zodResolver(createDestinationSchema),
     defaultValues: {
@@ -46,7 +47,9 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
     const [_, error] = await DestinationService.createDestination(data);
     if (error?.message) {
       trigger(error.message, ToastType.Error);
+      return;
     }
+    trigger("Destination created successfully", ToastType.Success);
     router.push(`/trip-detail/${trip.id}?tab=destination`);
     router.refresh();
   };
