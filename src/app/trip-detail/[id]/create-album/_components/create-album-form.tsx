@@ -36,7 +36,9 @@ const CreateAlbumForm: FC<IProps> = ({ trip }) => {
     if (error?.message) {
       trigger(error.message, ToastType.Error);
     }
-    router.back();
+
+    trigger("Album created successfully", ToastType.Success);
+    router.push(`/trip-detail/${trip.id}?tab=albums`);
     router.refresh();
   };
 

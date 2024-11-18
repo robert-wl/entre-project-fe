@@ -8,6 +8,7 @@ import IconShare from "@/components/icons/icon-share";
 import AlbumService from "@/services/album-service";
 import { useRouter } from "next/navigation";
 import { AlbumDetail } from "@/models/album";
+import useToast, { ToastType } from "@/hooks/use-toast";
 
 interface IProps {
   albumDetail: AlbumDetail;
@@ -16,9 +17,12 @@ interface IProps {
 const AlbumDetailCombobox: FC<IProps> = ({ albumDetail }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const {trigger} = useToast();
+
   const handleDelete = async () => {
     await AlbumService.deleteAlbumDetail(albumDetail.id);
 
+    trigger("Album deleted successfully", ToastType.Success);
     router.refresh();
   };
 
