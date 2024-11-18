@@ -1,5 +1,15 @@
 import IconDotsVertical from "@/components/icons/icon-dots-vertical";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import useToast, { ToastType } from "@/hooks/use-toast";
 import { Destination } from "@/models/destination";
@@ -12,19 +22,18 @@ interface IProps {
 }
 
 const DestinationItem: FC<IProps> = ({ destination }) => {
-  const { trigger } = useToast()
-  const router = useRouter()
+  const { trigger } = useToast();
+  const router = useRouter();
 
   const handleDeleteDestination = async () => {
     const [_, error] = await DestinationService.deleteDestination(destination.id);
 
     if (error) {
-      trigger(error.error, ToastType.Error)
+      trigger(error.error, ToastType.Error);
     }
 
-    router.refresh()
-
-  }
+    router.refresh();
+  };
 
   return (
     <div className="w-full h-32 flex bg-white rounded-lg shadow-lg gap-2">
@@ -41,27 +50,17 @@ const DestinationItem: FC<IProps> = ({ destination }) => {
             </PopoverTrigger>
             <PopoverContent className="w-fit p-0 mr-4">
               <div className="flex flex-col gap-2 p-2">
-                <button onClick={() => router.push(`/edit-destination/${destination.id}`)}>
-                    Edit
-                </button>
+                <button onClick={() => router.push(`/edit-destination/${destination.id}`)}>Edit</button>
                 <AlertDialog>
-                  <AlertDialogTrigger>
-                    Delete
-                  </AlertDialogTrigger>
+                  <AlertDialogTrigger>Delete</AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you sure to delete {destination.destination} ?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone.
-                      </AlertDialogDescription>
+                      <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>
-                        Cancel
-                      </AlertDialogCancel>
-                      <AlertDialogAction onClick={handleDeleteDestination}>
-                        Continue
-                      </AlertDialogAction>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleDeleteDestination}>Continue</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

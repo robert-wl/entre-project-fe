@@ -8,6 +8,7 @@ export interface Itinerary {
 }
 
 export interface ItineraryDetail {
+  id: number;
   date: string;
   itineraryItems: ItineraryItem[];
 }

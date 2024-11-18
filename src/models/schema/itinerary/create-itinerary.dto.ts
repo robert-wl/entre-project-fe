@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const compareTimes = (start: string, end: string): boolean => {
-  const [startHour, startMinute] = start.split(':').map(Number);
-  const [endHour, endMinute] = end.split(':').map(Number);
+  const [startHour, startMinute] = start.split(":").map(Number);
+  const [endHour, endMinute] = end.split(":").map(Number);
 
   return startHour < endHour || (startHour === endHour && startMinute < endMinute);
 };

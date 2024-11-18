@@ -27,5 +27,4 @@ export default class DestinationService extends BaseService {
   public static async getDestination(destinationId: number) {
     return this.get<GetDestinationResponse>(`/destinations/${destinationId}`);
   }
-
 }

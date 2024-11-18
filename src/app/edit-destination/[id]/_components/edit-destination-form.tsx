@@ -30,7 +30,7 @@ const EditDestinationForm: FC<IProps> = ({ destination }) => {
       destination: destination.destination,
       notes: destination.notes,
       image: destination.image,
-      destinationId: destination.id
+      destinationId: destination.id,
     },
   });
 

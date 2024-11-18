@@ -3,13 +3,20 @@
 import { FC } from "react";
 import EmptyTab from "../empty-tab";
 import { Itinerary } from "@/models/itinerary";
-import { useRouter } from "next/navigation";
-import ItineraryItem from "./itinerary-item";
+import { format } from "date-fns";
+import ItineraryDetailCard from "./itinerary-detail-card";
 
 interface IProps {
   tripId: number;
   itinerary: Itinerary;
 }
+
+const getFormattedDateString = (startDateString: string, currDateString: string) => {
+  const currDate = new Date(currDateString);
+  const startDate = new Date(startDateString);
+  const day = (currDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+  return `Day ${day} - ${format(currDate, "dd MMM yyyy")}`;
+};
 
 const ItineraryTab: FC<IProps> = ({ tripId, itinerary }) => {
   if (itinerary === null) {
@@ -24,8 +31,12 @@ const ItineraryTab: FC<IProps> = ({ tripId, itinerary }) => {
 
   return (
     <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">
-      {itinerary.itineraryDetails.map((itDetail, idx) => (
-        <ItineraryItem key={idx} itineraryDetail={itDetail} />
+      {itinerary.itineraryDetails.map((detail, idx) => (
+        <ItineraryDetailCard
+          key={idx}
+          detail={detail}
+          dateString={getFormattedDateString(itinerary.startDate, detail.date)}
+        />
       ))}
     </div>
   );

@@ -16,13 +16,7 @@ interface IProps {
   trip: Trip;
 }
 
-const ItineraryDetailForm: FC<IProps> = ({
-  control,
-  handleNavigate,
-  handleSubmit,
-  getValues,
-  trip
-}) => {
+const ItineraryDetailForm: FC<IProps> = ({ control, handleNavigate, handleSubmit, getValues, trip }) => {
   const startDate = getValues("startDate");
 
   const { fields } = useFieldArray({
@@ -41,7 +35,7 @@ const ItineraryDetailForm: FC<IProps> = ({
       showNavbar={false}
       className="p-8">
       <div className="w-full flex justify-end h-7">
-        <button onClick={()=>handleNavigate(-1)}>
+        <button onClick={() => handleNavigate(-1)}>
           <IconCancel className="size-full" />
         </button>
       </div>
