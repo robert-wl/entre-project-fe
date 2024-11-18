@@ -21,7 +21,7 @@ const ItineraryDateForm: FC<IProps> = ({ control, handleNavigate }) => {
     <GradientLayout
       showNavbar={false}
       className="p-8 gap-4">
-      <div className="w-full flex justify-between py-2">
+      <div className="w-full flex justify-between">
         <p className="text-lg font-semibold">Create Itinerary</p>
         <button onClick={router.back}>
           <IconCancel className="size-full" />
@@ -39,7 +39,7 @@ const ItineraryDateForm: FC<IProps> = ({ control, handleNavigate }) => {
               className="py-6 bg-white"
               placeholder="Start date"
               onChange={(e) => {
-                const dateValue = e.target.value ? new Date(e.target.value) : null;
+                const dateValue = new Date(e.target.value) ?? null;
                 field.onChange(dateValue);
               }}
               value={field.value ? field.value.toISOString().split("T")[0] : ""}

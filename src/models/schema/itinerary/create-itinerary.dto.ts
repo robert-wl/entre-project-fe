@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+const compareTimes = (start: string, end: string): boolean => {
+  const [startHour, startMinute] = start.split(":").map(Number);
+  const [endHour, endMinute] = end.split(":").map(Number);
+
+  return startHour < endHour || (startHour === endHour && startMinute < endMinute);
+};
+
 export const createItinerarySchema = z.object({
   startDate: z.date(),
   endDate: z.date(),
@@ -15,7 +22,8 @@ export const createItinerarySchema = z.object({
             detailName: z.string().min(1),
           }),
         )
-        .min(1),
+        .min(1)
+        .refine((items) => items.every((item) => compareTimes(item.startHour, item.endHour))),
     }),
   ),
 });

@@ -1,5 +1,5 @@
 import { Destination } from "@/models/destination";
 
-export interface DeleteDestinationResponse {
+export interface GetDestinationResponse {
   result: Destination;
 }

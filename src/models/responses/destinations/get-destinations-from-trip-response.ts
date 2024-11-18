@@ -1,5 +1,5 @@
 import { Destination } from "@/models/destination";
 
-export interface GetDestinationsResponse {
+export interface GetDestinationsFromTripResponse {
   result: Destination[];
 }

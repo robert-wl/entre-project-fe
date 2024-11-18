@@ -3,19 +3,23 @@
 import { FC } from "react";
 import EmptyTab from "../empty-tab";
 import { Itinerary } from "@/models/itinerary";
-import FloatActionButton from "@/components/ui/float-action-button";
-import { useRouter } from "next/navigation";
-import ItineraryItem from "./itinerary-item";
+import { format } from "date-fns";
+import ItineraryDetailCard from "./itinerary-detail-card";
 
 interface IProps {
   tripId: number;
-  itineraries: Itinerary[];
+  itinerary: Itinerary;
 }
 
-const ItineraryTab: FC<IProps> = ({ tripId, itineraries }) => {
-  const router = useRouter();
+const getFormattedDateString = (startDateString: string, currDateString: string) => {
+  const currDate = new Date(currDateString);
+  const startDate = new Date(startDateString);
+  const day = (currDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+  return `Day ${day} - ${format(currDate, "dd MMM yyyy")}`;
+};
 
-  if (itineraries.length === 0) {
+const ItineraryTab: FC<IProps> = ({ tripId, itinerary }) => {
+  if (itinerary === null) {
     return (
       <EmptyTab
         routeName="/create-itinerary"
@@ -27,15 +31,13 @@ const ItineraryTab: FC<IProps> = ({ tripId, itineraries }) => {
 
   return (
     <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">
-      {itineraries.map((itinerary, idx) => (
-        <ItineraryItem
-          itinerary={itinerary}
+      {itinerary.itineraryDetails.map((detail, idx) => (
+        <ItineraryDetailCard
           key={idx}
+          detail={detail}
+          dateString={getFormattedDateString(itinerary.startDate, detail.date)}
         />
       ))}
-      <div className="w-full flex-1">
-        <FloatActionButton onClick={() => router.push(`/trip-detail/${tripId}/create-itinerary`)}>+</FloatActionButton>
-      </div>
     </div>
   );
 };
