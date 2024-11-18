@@ -14,7 +14,7 @@ const ListHome: FC<IProps> = ({ tripList }) => {
   const router = useRouter();
 
   return (
-    <GradientLayout>
+    <GradientLayout showFooter={false}>
       <div className="flex flex-wrap justify-center w-full gap-6 p-6">
         {tripList.map((trip) => (
           <TripCard

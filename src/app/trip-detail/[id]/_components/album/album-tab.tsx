@@ -18,6 +18,7 @@ const AlbumTab: FC<IProps> = ({ albums, tripId }) => {
   if (albums.length === 0) {
     return (
       <EmptyTab
+        image={"/empty-album.png"}
         routeName="/create-album"
         tabName="Add Album"
         tripId={tripId}

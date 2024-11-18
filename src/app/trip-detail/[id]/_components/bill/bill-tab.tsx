@@ -21,6 +21,7 @@ const BillTab: FC<IProps> = ({ tripId, bills }) => {
   if (bills.length === 0) {
     return (
       <EmptyTab
+        image={"/empty-bill.png"}
         tripId={tripId}
         tabName="Add Bill"
         routeName="create-bill"

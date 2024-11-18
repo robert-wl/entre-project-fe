@@ -16,6 +16,7 @@ const DestinationTab: FC<IProps> = ({ tripId, destinations }) => {
   if (destinations.length === 0) {
     return (
       <EmptyTab
+        image={"/empty-destination.png"}
         tripId={tripId}
         tabName="Add Destination"
         routeName="create-destination"

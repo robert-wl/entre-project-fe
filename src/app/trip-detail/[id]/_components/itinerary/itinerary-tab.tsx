@@ -22,6 +22,7 @@ const ItineraryTab: FC<IProps> = ({ tripId, itinerary }) => {
   if (itinerary === null) {
     return (
       <EmptyTab
+        image={"/empty-itinerary.png"}
         routeName="/create-itinerary"
         tabName="Add Itinerary"
         tripId={tripId}
