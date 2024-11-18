@@ -37,7 +37,7 @@ const AlbumTab: FC<IProps> = ({ albums, tripId }) => {
         />
       ))}
       <div className="w-full flex-1">
-        <FloatActionButton onClick={() => router.push(`/trip-detail/${tripId}/create-destination`)}>+</FloatActionButton>
+        <FloatActionButton onClick={() => router.push(`/trip-detail/${tripId}/create-album`)}>+</FloatActionButton>
       </div>
     </div>
   );

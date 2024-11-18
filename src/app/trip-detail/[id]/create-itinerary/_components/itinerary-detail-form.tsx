@@ -52,6 +52,10 @@ const ItineraryDetailForm: FC<IProps> = ({ control, handleNavigate, handleSubmit
             />
           );
         })}
+        <img
+          src={"/create-itinerary.png"}
+          alt="Uploaded"
+        />
         <div className="w-full flex flex-col flex-1 justify-end bg-red">
           <Button
             className="w-full rounded-full shadow-xl text-lg font-bold py-6"

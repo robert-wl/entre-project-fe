@@ -69,6 +69,10 @@ const CreateAlbumForm: FC<IProps> = ({ trip }) => {
           placeholder="Name"
           className="bg-white py-6"
         />
+        <img
+          src={"/create-album.png"}
+          alt="Uploaded"
+        />
         <div className="flex flex-col flex-1 justify-end">
           <Button
             type="submit"

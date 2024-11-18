@@ -64,6 +64,10 @@ const ItineraryDateForm: FC<IProps> = ({ control, handleNavigate }) => {
           )}
         />
       </div>
+      <img
+        src={"/create-itinerary.png"}
+        alt="Uploaded"
+      />
       <div className="flex flex-col flex-1 justify-end">
         <Button
           className="rounded-full py-6 font-bold text-lg"

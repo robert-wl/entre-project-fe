@@ -98,6 +98,10 @@ const EditDestinationForm: FC<IProps> = ({ destination }) => {
             <p className="text-gray-400 text-base underline">Upload image</p>
           </Button>
         )}
+        <img
+          src={"/create-destination.png"}
+          alt="Uploaded"
+        />
         <div className="flex flex-col flex-1 justify-end">
           <Button
             type="submit"
