@@ -4,7 +4,7 @@ services:
     tty: true
     build: .
     ports:
-      - "3636:3000"
+      - "3646:3000"
     environment:
       - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
