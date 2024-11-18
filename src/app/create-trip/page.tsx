@@ -25,6 +25,8 @@ const CreateTrip: React.FC = () => {
       return;
     }
 
+    trigger("Trip created successfully!", ToastType.Success);
+
     router.push("/home");
     router.refresh();
   };
@@ -43,10 +45,10 @@ const CreateTrip: React.FC = () => {
             easier<span className="font-bold text-primary"> now!</span>
           </p>
         </div>
-        <div className="w-full flex flex-[4] items-start justify-center">
+        <div className="w-full flex flex-[4] px-8 items-start justify-center">
           <Sheet>
             <SheetTrigger asChild>
-              <Button className="w-fit py-6 px-8 rounded-3xl font-bold">Add Trip</Button>
+              <Button className="w-full py-6 rounded-full font-semibold text-base">Add Trip</Button>
             </SheetTrigger>
             <SheetContent
               side={"bottom"}

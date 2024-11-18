@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const Page: FC<IProps> = async ({ params: { id, albumId } }) => {
-  const [response, error] = await AlbumService.getAlbumDetails(albumId);
+  const [response, error] = await AlbumService.getAlbumWithDetails(albumId);
 
   if (error) {
     redirect(`trip-detail/${id}`);

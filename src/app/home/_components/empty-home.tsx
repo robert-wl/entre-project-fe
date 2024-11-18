@@ -6,7 +6,7 @@ import { FC } from "react";
 const EmptyHome: FC = () => {
   return (
     <GradientLayout>
-      <div className="flex flex-col flex-1 gap-8 px-10 justify-center items-center">
+      <div className="flex flex-col flex-1 gap-8 px-8 justify-center items-center">
         <div className="flex flex-col text-center gap-2">
           <p className="font-semibold text-2xl">Let's start your</p>
           <p className="font-bold underline text-3xl text-primary">first trip</p>

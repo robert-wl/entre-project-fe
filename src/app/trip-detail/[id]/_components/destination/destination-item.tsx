@@ -1,4 +1,6 @@
 import IconDotsVertical from "@/components/icons/icon-dots-vertical";
+import IconEdit from "@/components/icons/icon-edit";
+import IconTrash from "@/components/icons/icon-trash";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,6 +34,7 @@ const DestinationItem: FC<IProps> = ({ destination }) => {
       trigger(error.error, ToastType.Error);
     }
 
+    trigger("Destination deleted successfully", ToastType.Success);
     router.refresh();
   };
 
@@ -50,9 +53,15 @@ const DestinationItem: FC<IProps> = ({ destination }) => {
             </PopoverTrigger>
             <PopoverContent className="w-fit p-0 mr-4">
               <div className="flex flex-col gap-2 p-2">
-                <button onClick={() => router.push(`/edit-destination/${destination.id}`)}>Edit</button>
+                <button
+                  className="flex gap-2 items-center "
+                  onClick={() => router.push(`/edit-destination/${destination.id}`)}>
+                  <IconEdit /> Edit
+                </button>
                 <AlertDialog>
-                  <AlertDialogTrigger>Delete</AlertDialogTrigger>
+                  <AlertDialogTrigger className="flex gap-2 items-center text-red-600">
+                    <IconTrash /> Delete
+                  </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you sure to delete {destination.destination} ?</AlertDialogTitle>
