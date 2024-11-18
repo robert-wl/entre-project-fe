@@ -38,7 +38,7 @@ const CreateAlbumForm: FC<IProps> = ({ trip }) => {
     }
 
     trigger("Album created successfully", ToastType.Success);
-    router.push(`/trip-detail/${trip.id}?tab=albums`);
+    router.replace(`/trip-detail/${trip.id}?tab=albums`);
     router.refresh();
   };
 

@@ -40,7 +40,8 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
     if (error?.message) {
       trigger(error.message, ToastType.Error);
     }
-    router.back();
+    trigger("Album added successfully", ToastType.Success);
+    router.refresh();
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

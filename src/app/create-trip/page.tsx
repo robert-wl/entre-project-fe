@@ -27,7 +27,7 @@ const CreateTrip: React.FC = () => {
 
     trigger("Trip created successfully!", ToastType.Success);
 
-    router.push("/home");
+    router.replace("/home");
     router.refresh();
   };
 
