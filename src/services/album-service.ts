@@ -12,7 +12,7 @@ export default class AlbumService extends BaseService {
     return this.get<GetAlbumsResponse>(`/albums?tripId=${tripId}`);
   }
 
-  public static async getAlbumDetails(albumId: number) {
+  public static async getAlbumWithDetails(albumId: number) {
     return this.get<GetAlbumDetailsResponse>(`/albums/${albumId}/details`);
   }
 

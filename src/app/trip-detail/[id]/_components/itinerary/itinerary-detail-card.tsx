@@ -68,7 +68,7 @@ const ItineraryDetailCard: FC<IProps> = ({ detail, dateString }) => {
               ))}
               <button
                 type="button"
-                className="w-full bg-gray-100 p-1"
+                className="w-full bg-gray-200 p-1"
                 onClick={addItineraryItem}>
                 +
               </button>

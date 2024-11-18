@@ -83,7 +83,7 @@ const BillDetailForm: FC<IProps> = ({ control, index, tripMembers = [], removeFi
           />
           <button
             onClick={() => removeBillItem(itemIndex)}
-            className="flex items-center justify-center text-base bg-red-500 hover:bg-red-600 text-white shadow-md rounded-full size-8">
+            className="flex items-center justify-center text-base bg-red-500 hover:bg-red-600 text-white shadow-md rounded-full size-6">
             <IconMinus />
           </button>
         </div>
