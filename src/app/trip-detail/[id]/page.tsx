@@ -88,7 +88,7 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
   };
 
   return (
-    <GradientLayout>
+    <GradientLayout showFooter={false}>
       <TripDetailHeader trip={response.result} />
       <div className="w-full flex-col flex-1 whitespace-nowrap rounded-md border">
         <div className="flex w-screen overflow-x-scroll flex-1 space-x-4 p-4">

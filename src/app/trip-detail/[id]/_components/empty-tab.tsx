@@ -12,11 +12,12 @@ const EmptyTab: FC<IProps> = ({ tripId, tabName, routeName }) => {
   const router = useRouter();
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-fit min-h-64 flex justify-center items-center">
       <Button
         onClick={() => router.push(`/trip-detail/${tripId}/${routeName}`)}
-        className="rounded-full font-bold p-6">
-        + {tabName}
+        className="flex gap-2 rounded-full font-bold text-base p-6 min-w-48">
+        <span>+</span>
+        <span>{tabName}</span>
       </Button>
     </div>
   );

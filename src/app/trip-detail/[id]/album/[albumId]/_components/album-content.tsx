@@ -77,7 +77,7 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
                 <AlbumDetailCombobox id={detail.id} />
               </div>
               <img
-                src={detail.image}
+                src={detail.imageUrl}
                 className="h-32 w-full object-cover rounded-b-lg"
                 alt="Uploaded"
               />

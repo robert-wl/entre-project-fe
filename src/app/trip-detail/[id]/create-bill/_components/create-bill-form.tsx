@@ -62,6 +62,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
     }
 
     router.push(`/trip-detail/${trip.id}`);
+    router.refresh();
   };
 
   const values = watch();

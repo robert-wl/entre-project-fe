@@ -32,7 +32,7 @@ const BillContent: FC<IProps> = ({ bill }) => {
   const confirmBill = async () => {
     if (!myBill) return;
 
-    const [response, error] = await BillService.confirmBill(myBill.id);
+    const [_, error] = await BillService.confirmBill(myBill.id);
 
     if (error) {
       console.error(error);
@@ -44,6 +44,7 @@ const BillContent: FC<IProps> = ({ bill }) => {
 
   return (
     <GradientLayout
+      showFooter={false}
       className="p-8 gap-4"
       showNavbar={false}>
       <div className="w-full flex justify-between py-2">
@@ -55,7 +56,7 @@ const BillContent: FC<IProps> = ({ bill }) => {
           <IconCancel className="size-full" />
         </button>
       </div>
-      <div className="flex flex-col min-h-full flex-grow h-fit items-center justify-between gap-4">
+      <div className="flex flex-col min-h-[70%] flex-grow h-fit items-center justify-between gap-4">
         <div className="flex flex-col gap-4 min-w-full items-center">
           <p className="w-full max-w-xl">Details</p>
           {bill.billDetails?.map((detail) => (

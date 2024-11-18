@@ -29,7 +29,7 @@ const EditDestinationForm: FC<IProps> = ({ destination }) => {
     defaultValues: {
       destination: destination.destination,
       notes: destination.notes,
-      image: destination.image,
+      image: destination.imageUrl,
       destinationId: destination.id,
     },
   });

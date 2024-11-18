@@ -3,6 +3,6 @@ export interface Destination {
   destination: string;
   notes: string;
   tripId: number;
-  image: string;
+  imageUrl: string;
   destinationOwnerId: number;
 }

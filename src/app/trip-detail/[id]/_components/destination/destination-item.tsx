@@ -39,7 +39,7 @@ const DestinationItem: FC<IProps> = ({ destination }) => {
     <div className="w-full h-32 flex bg-white rounded-lg shadow-lg gap-2">
       <img
         className="max-w-lg w-2/5 h-full"
-        src={destination.image}
+        src={destination.imageUrl}
       />
       <div className="p-2 gap-4 w-full">
         <div className="w-full flex justify-between">

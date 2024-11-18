@@ -15,7 +15,7 @@ export interface AlbumDetail {
   name: string;
   albumId: number;
   userId: number;
-  image: string;
+  imageUrl: string;
 
   user?: User;
   album?: Album;
