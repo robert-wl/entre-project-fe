@@ -74,7 +74,7 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
                 <div className="flex items-center">
                   <IconImage className="size-4" /> <p className="p-2">{detail.name}</p>
                 </div>
-                <AlbumDetailCombobox id={detail.id} />
+                <AlbumDetailCombobox albumDetail={detail} />
               </div>
               <img
                 src={detail.imageUrl}

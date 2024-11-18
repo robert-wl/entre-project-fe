@@ -7,18 +7,27 @@ import IconTrash from "@/components/icons/icon-trash";
 import IconShare from "@/components/icons/icon-share";
 import AlbumService from "@/services/album-service";
 import { useRouter } from "next/navigation";
+import { AlbumDetail } from "@/models/album";
 
 interface IProps {
-  id: number;
+  albumDetail: AlbumDetail;
 }
 
-const AlbumDetailCombobox: FC<IProps> = ({ id }) => {
+const AlbumDetailCombobox: FC<IProps> = ({ albumDetail }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const handleDelete = async () => {
-    await AlbumService.deleteAlbumDetail(id);
+    await AlbumService.deleteAlbumDetail(albumDetail.id);
 
     router.refresh();
+  };
+
+  const shareImage = async () => {
+    await navigator.share({
+      title: albumDetail.name,
+      text: "Check out this image",
+      url: albumDetail.imageUrl,
+    });
   };
 
   return (
@@ -34,7 +43,7 @@ const AlbumDetailCombobox: FC<IProps> = ({ id }) => {
         align="end"
         className="w-[100px]">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={shareImage}>
             <IconShare />
             Share
           </DropdownMenuItem>
