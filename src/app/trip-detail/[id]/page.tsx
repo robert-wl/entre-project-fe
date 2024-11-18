@@ -45,7 +45,7 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
         />
       );
     } else if (currentTab === "itinerary") {
-      const [response, error] = await ItineraryService.getItineraries(trip.id);
+      const [response, error] = await ItineraryService.getItinerary(trip.id);
 
       if (error) {
         redirect("/home");
@@ -54,11 +54,11 @@ const TripDetail: FC<Props> = async ({ params: { id }, searchParams: { tab } }) 
       return (
         <ItineraryTab
           tripId={trip.id}
-          itineraries={response.result}
+          itinerary={response.result}
         />
       );
     } else if (currentTab === "destination") {
-      const [response, error] = await DestinationService.getDestinations(trip.id);
+      const [response, error] = await DestinationService.getDestinationsFromTrip(trip.id);
 
       if (error) {
         redirect("/home");

@@ -1,67 +1,38 @@
-import IconCancel from "@/components/icons/icon-cancel";
-import GradientLayout from "@/components/layouts/gradient-layout";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
 import { CreateItineraryDTO } from "@/models/schema/itinerary/create-itinerary.dto";
-import { Trip } from "@/models/trip";
+import { register } from "module";
 import { FC } from "react";
-import { Control, useFieldArray, UseFormGetValues } from "react-hook-form";
-import ItineraryDetailForm from "./itinerary-detail-form";
-import { format } from "date-fns";
-import { Button } from "@/components/ui/button";
+import { Control, useFieldArray } from "react-hook-form";
 
 interface IProps {
-  control: Control<CreateItineraryDTO, any>;
-  getValues: UseFormGetValues<CreateItineraryDTO>;
-  handleNavigate: (key: number) => void;
-  handleSubmit: () => Promise<void>;
-  trip: Trip;
+  control: Control<CreateItineraryDTO>;
+  itineraryIndex: number;
+  datestring: string;
 }
 
-const ItineraryItemForm: FC<IProps> = ({ control, handleNavigate, handleSubmit, getValues, trip }) => {
-  const startDate = getValues("startDate");
-
-  const { fields } = useFieldArray({
-    control,
-    name: "itineraryDetail",
-  });
-
-  const getFormattedDate = (dayIndex: number) => {
-    const currentDate = new Date(startDate);
-    currentDate.setDate(startDate.getDate() + dayIndex);
-    return `Day ${dayIndex + 1} - ${format(currentDate, "dd MMMM yyyy")}`;
-  };
-
+const ItineraryItemForm: FC<IProps> = ({ control, itineraryIndex, datestring }) => {
   return (
-    <GradientLayout
-      showNavbar={false}
-      className="p-8 gap-4">
-      <div className="w-full flex justify-between py-2">
-        <p className="text-lg font-semibold">{trip.name}</p>
-        <button onClick={() => handleNavigate(-1)}>
-          <IconCancel className="size-full" />
-        </button>
+    <div className="w-full flex flex-col gap-4">
+      <p className="text-lg font-bold">{datestring}</p>
+      <Input
+        {...control.register(`itineraryDetail.${itineraryIndex}.itineraryItems.0.detailName`)}
+        placeholder="Activity Title"
+        className="bg-white"
+      />
+      <div className="flex gap-4">
+        <Input
+          {...control.register(`itineraryDetail.${itineraryIndex}.itineraryItems.0.startHour`)}
+          placeholder="Start Time"
+          className="bg-white"
+        />
+        <Input
+          {...control.register(`itineraryDetail.${itineraryIndex}.itineraryItems.0.endHour`)}
+          placeholder="End Time"
+          className="bg-white"
+        />
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col flex-1 gap-2">
-        {fields.map((_, index) => {
-          return (
-            <ItineraryDetailForm
-              datestring={getFormattedDate(index)}
-              control={control}
-              itineraryIndex={index}
-              key={index}
-            />
-          );
-        })}
-        <div className="w-full flex flex-col flex-1 justify-end bg-red">
-          <Button
-            className="w-full rounded-full shadow-xl text-lg font-bold py-6"
-            type="submit">
-            Add Itinerary
-          </Button>
-        </div>
-      </form>
-    </GradientLayout>
+    </div>
   );
 };
 

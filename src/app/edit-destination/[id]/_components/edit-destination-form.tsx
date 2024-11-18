@@ -8,8 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useToast, { ToastType } from "@/hooks/use-toast";
 import { convertToBase64 } from "@/lib/utils";
-import { CreateDestinationDTO, createDestinationSchema } from "@/models/schema/destination/create-destination.dto";
-import { Trip } from "@/models/trip";
+import { Destination } from "@/models/destination";
+import { EditDestinationDTO, editDestinationSchema } from "@/models/schema/destination/edit-destination.dto";
 import DestinationService from "@/services/destination-service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -17,20 +17,20 @@ import { FC, useRef } from "react";
 import { useForm } from "react-hook-form";
 
 interface IProps {
-  trip: Trip;
+  destination: Destination;
 }
 
-const CreateDestinationForm: FC<IProps> = ({ trip }) => {
+const EditDestinationForm: FC<IProps> = ({ destination }) => {
   const router = useRouter();
   const { trigger } = useToast();
   const destinationImageInputRef = useRef<HTMLInputElement>(null);
-  const { register, handleSubmit, setValue, watch } = useForm<CreateDestinationDTO>({
-    resolver: zodResolver(createDestinationSchema),
+  const { register, handleSubmit, setValue, watch } = useForm<EditDestinationDTO>({
+    resolver: zodResolver(editDestinationSchema),
     defaultValues: {
-      destination: "",
-      notes: "",
-      image: "",
-      tripId: trip.id,
+      destination: destination.destination,
+      notes: destination.notes,
+      image: destination.image,
+      destinationId: destination.id
     },
   });
 
@@ -42,12 +42,12 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
     }
   };
 
-  const createDestination = async (data: CreateDestinationDTO) => {
-    const [_, error] = await DestinationService.createDestination(data);
+  const editDestination = async (data: EditDestinationDTO) => {
+    const [_, error] = await DestinationService.editDestination(data);
     if (error?.message) {
       trigger(error.message, ToastType.Error);
     }
-    router.push(`/trip-detail/${trip.id}`);
+    router.push(`/trip-detail/${destination.tripId}`);
     router.refresh();
   };
 
@@ -62,7 +62,7 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
         </button>
       </div>
       <form
-        onSubmit={handleSubmit(createDestination)}
+        onSubmit={handleSubmit(editDestination)}
         className="flex flex-col w-full gap-4 flex-1">
         <Input
           {...register("destination")}
@@ -102,7 +102,7 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
           <Button
             type="submit"
             className="rounded-full p-6 font-bold">
-            Add destination
+            Edit destination
           </Button>
         </div>
       </form>
@@ -110,4 +110,4 @@ const CreateDestinationForm: FC<IProps> = ({ trip }) => {
   );
 };
 
-export default CreateDestinationForm;
+export default EditDestinationForm;

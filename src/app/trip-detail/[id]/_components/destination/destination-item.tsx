@@ -40,11 +40,13 @@ const DestinationItem: FC<IProps> = ({ destination }) => {
               <IconDotsVertical />
             </PopoverTrigger>
             <PopoverContent className="w-fit p-0 mr-4">
-              <div className="flex flex-col gap-1">
-                <button className="px-3 py-1 text-left">Edit</button>
+              <div className="flex flex-col gap-2 p-2">
+                <button onClick={() => router.push(`/edit-destination/${destination.id}`)}>
+                    Edit
+                </button>
                 <AlertDialog>
                   <AlertDialogTrigger>
-                    <button className="px-3 py-1 text-left">Delete</button>
+                    Delete
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>

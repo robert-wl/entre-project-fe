@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateItineraryDTO, createItinerarySchema } from "@/models/schema/itinerary/create-itinerary.dto";
 import { useForm } from "react-hook-form";
 import { Trip } from "@/models/trip";
-import ItineraryItemForm from "./itinerary-item-form";
+import ItineraryItemForm from "./itinerary-detail-form";
 import { useSession } from "next-auth/react";
 import ItineraryService from "@/services/itinerary-service";
 import useToast, { ToastType } from "@/hooks/use-toast";
@@ -19,8 +19,6 @@ interface IProps {
 const CreateItineraryForm: FC<IProps> = ({ trip }) => {
   const [step, setStep] = useState(1);
 
-  const { data: session } = useSession();
-  const userId = session?.user.id ? +session?.user.id : -1;
   const { trigger } = useToast();
   const router = useRouter();
 
@@ -71,7 +69,8 @@ const CreateItineraryForm: FC<IProps> = ({ trip }) => {
       trigger(error.message, ToastType.Error);
     }
 
-    router.back();
+    router.push(`/trip-detail/${trip.id}`);
+    router.refresh();
   };
 
   return step === 1 ? (
