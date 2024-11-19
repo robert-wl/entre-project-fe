@@ -30,7 +30,7 @@ const BillTab: FC<IProps> = ({ tripId, bills }) => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">
+    <div className="w-full flex flex-col flex-1 p-4 gap-4">
       <Select
         value={selectedBillFilter}
         onValueChange={(value) => setSelectedBillFilter(value)}>
