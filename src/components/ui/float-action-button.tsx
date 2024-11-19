@@ -6,18 +6,16 @@ interface IProps {
   onClick?: () => void;
 }
 
-const FloatActionButton = forwardRef<HTMLButtonElement, IProps>(
-  ({ onClick, children }, ref) => {
-    return (
-      <Button
-        ref={ref}
-        className="fixed bottom-6 right-6 text-3xl rounded-full size-16 shadow-md"
-        onClick={onClick}>
-        {children}
-      </Button>
-    );
-  }
-);
+const FloatActionButton = forwardRef<HTMLButtonElement, IProps>(({ onClick, children }, ref) => {
+  return (
+    <Button
+      ref={ref}
+      className="fixed bottom-6 right-6 text-3xl rounded-full size-16 shadow-md"
+      onClick={onClick}>
+      {children}
+    </Button>
+  );
+});
 
 FloatActionButton.displayName = "FloatActionButton";
 

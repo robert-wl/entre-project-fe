@@ -15,7 +15,6 @@ services:
       - NEXTAUTH_URL=${NEXTAUTH_URL}
     restart: on-failure
 
-
 networks:
   splanngo:
     external: true

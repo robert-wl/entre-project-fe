@@ -17,7 +17,7 @@ interface IProps {
 const AlbumDetailCombobox: FC<IProps> = ({ albumDetail }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const {trigger} = useToast();
+  const { trigger } = useToast();
 
   const handleDelete = async () => {
     await AlbumService.deleteAlbumDetail(albumDetail.id);

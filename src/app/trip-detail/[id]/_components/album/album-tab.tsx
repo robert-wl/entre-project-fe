@@ -27,8 +27,7 @@ const AlbumTab: FC<IProps> = ({ albums, tripId }) => {
   }
 
   return (
-    <div
-      className="w-full grid grid-cols-2 p-4 gap-4">
+    <div className="w-full grid grid-cols-2 p-4 gap-4">
       {albums.map((album) => (
         <AlbumItem
           album={album}

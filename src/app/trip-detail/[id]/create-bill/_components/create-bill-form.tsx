@@ -23,13 +23,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
   const router = useRouter();
   const { onError } = useFormError();
   const { trigger } = useToast();
-  const {
-    register,
-    handleSubmit,
-    control,
-    watch,
-    formState: { errors },
-  } = useForm<CreateBillDTO>({
+  const { register, handleSubmit, control, watch } = useForm<CreateBillDTO>({
     defaultValues: {
       tripId: +trip.id,
       name: "",
