@@ -27,7 +27,7 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
   const router = useRouter();
   const { trigger } = useToast();
   const albumImageInputRef = useRef<HTMLInputElement>(null);
-  const { register, handleSubmit, setValue, watch } = useForm<CreateAlbumDetailDTO>({
+  const { register, handleSubmit, setValue, watch, reset } = useForm<CreateAlbumDetailDTO>({
     resolver: zodResolver(createAlbumDetailSchema),
     defaultValues: {
       name: "",
@@ -40,6 +40,7 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
     if (error?.message) {
       trigger(error.message, ToastType.Error);
     }
+    reset();
     trigger("Album added successfully", ToastType.Success);
     router.refresh();
   };
@@ -51,6 +52,7 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
       setValue("image", base64image);
     }
   };
+
 
   return (
     <GradientLayout

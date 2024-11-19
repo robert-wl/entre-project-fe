@@ -31,7 +31,7 @@ const ItineraryTab: FC<IProps> = ({ tripId, itinerary }) => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">
+    <div className="w-full flex flex-col flex-1 p-4 gap-4">
       {itinerary.itineraryDetails.map((detail, idx) => (
         <ItineraryDetailCard
           key={idx}

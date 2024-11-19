@@ -25,7 +25,7 @@ const DestinationTab: FC<IProps> = ({ tripId, destinations }) => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col flex-1 p-4 gap-4">
+    <div className="w-full flex flex-col flex-1 p-4 gap-4">
       {destinations.map((destination, idx) => (
         <DestinationItem
           destination={destination}
