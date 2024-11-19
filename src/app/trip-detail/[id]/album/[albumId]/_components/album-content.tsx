@@ -53,7 +53,6 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
     }
   };
 
-
   return (
     <GradientLayout
       showFooter={false}

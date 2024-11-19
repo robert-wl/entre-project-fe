@@ -5,19 +5,20 @@ import { Control, Controller } from "react-hook-form";
 
 interface IProps {
   control: Control<EditItineraryDetailDTO>;
-  index: number;
+  detailIndex: number;
+  itemIndex: number;
 }
 
-const ItineraryItemCard: FC<IProps> = ({ control, index }) => {
+const ItineraryItemCard: FC<IProps> = ({ control, detailIndex, itemIndex }) => {
   return (
     <Controller
       control={control}
-      name={`itineraryItems.${index}`}
+      name={`itineraryDetails.${detailIndex}.itineraryItems.${itemIndex}`}
       render={({ field }) => (
         <div className="flex gap-1 items-center">
           <Input
             className="flex-1"
-            {...control.register(`itineraryItems.${index}.startHour`)}
+            {...control.register(`itineraryDetails.${detailIndex}.itineraryItems.${itemIndex}.startHour`)}
             placeholder="Start hour"
           />
 
@@ -25,7 +26,7 @@ const ItineraryItemCard: FC<IProps> = ({ control, index }) => {
 
           <Input
             className="flex-1"
-            {...control.register(`itineraryItems.${index}.endHour`)}
+            {...control.register(`itineraryDetails.${detailIndex}.itineraryItems.${itemIndex}.endHour`)}
             placeholder="End hour"
           />
 
@@ -33,7 +34,7 @@ const ItineraryItemCard: FC<IProps> = ({ control, index }) => {
 
           <Input
             className="flex-[2]"
-            {...control.register(`itineraryItems.${index}.detailName`)}
+            {...control.register(`itineraryDetails.${detailIndex}.itineraryItems.${itemIndex}.detailName`)}
             placeholder="Detail name"
           />
         </div>

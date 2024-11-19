@@ -14,7 +14,6 @@ services:
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
     restart: on-failure
 
-
 networks:
   splanngo:
     external: true
