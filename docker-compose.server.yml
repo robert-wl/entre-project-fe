@@ -3,9 +3,18 @@ services:
     image: yahkerobertkertasnya/splanngo-fe:latest
     tty: true
     build: .
+    networks:
+      - splanngo
     ports:
       - "3646:3000"
     environment:
+      - NEXT_PUBLIC_IS_CONTAINER=true
+      - NEXT_PUBLIC_BACKEND_DOCKER_URL=${NEXT_PUBLIC_BACKEND_DOCKER_URL}
       - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
     restart: on-failure
+
+
+networks:
+  splanngo:
+    driver: bridge
