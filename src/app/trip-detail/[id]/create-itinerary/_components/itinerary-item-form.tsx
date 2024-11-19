@@ -1,9 +1,7 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { CreateItineraryDTO } from "@/models/schema/itinerary/create-itinerary.dto";
-import { register } from "module";
 import { FC } from "react";
-import { Control, useFieldArray } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 interface IProps {
   control: Control<CreateItineraryDTO>;

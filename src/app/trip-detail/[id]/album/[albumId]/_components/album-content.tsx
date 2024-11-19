@@ -39,6 +39,7 @@ const AlbumContent: FC<IProps> = ({ tripId, album }) => {
     const [_, error] = await AlbumService.createAlbumDetail(data, album.id);
     if (error?.message) {
       trigger(error.message, ToastType.Error);
+      return;
     }
     reset();
     trigger("Album added successfully", ToastType.Success);

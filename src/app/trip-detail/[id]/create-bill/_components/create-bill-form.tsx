@@ -53,6 +53,7 @@ const CreateBillForm: FC<IProps> = ({ trip }) => {
 
     if (error) {
       trigger("Error when creating bill", ToastType.Error);
+      return;
     }
 
     trigger("Bill created successfully", ToastType.Success);

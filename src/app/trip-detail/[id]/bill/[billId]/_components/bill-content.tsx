@@ -35,8 +35,8 @@ const BillContent: FC<IProps> = ({ bill }) => {
     const [_, error] = await BillService.confirmBill(myBill.id);
 
     if (error) {
-      console.error(error);
       trigger("Failed to confirm payment", ToastType.Error);
+      return;
     }
 
     trigger("Bill confirmed successfully", ToastType.Success);

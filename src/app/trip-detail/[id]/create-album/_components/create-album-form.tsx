@@ -35,6 +35,7 @@ const CreateAlbumForm: FC<IProps> = ({ trip }) => {
     const [_, error] = await AlbumService.createAlbum(data, trip.id);
     if (error?.message) {
       trigger(error.message, ToastType.Error);
+      return;
     }
 
     trigger("Album created successfully", ToastType.Success);

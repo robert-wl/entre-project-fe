@@ -46,6 +46,7 @@ const EditDestinationForm: FC<IProps> = ({ destination }) => {
     const [_, error] = await DestinationService.editDestination(data);
     if (error?.message) {
       trigger(error.message, ToastType.Error);
+      return;
     }
     trigger("Destination edited successfully", ToastType.Success);
     router.replace(`/trip-detail/${destination.tripId}`);

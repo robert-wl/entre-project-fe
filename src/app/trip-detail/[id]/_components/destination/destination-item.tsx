@@ -32,6 +32,7 @@ const DestinationItem: FC<IProps> = ({ destination }) => {
 
     if (error) {
       trigger(error.error, ToastType.Error);
+      return;
     }
 
     trigger("Destination deleted successfully", ToastType.Success);

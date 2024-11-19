@@ -67,6 +67,7 @@ const CreateItineraryForm: FC<IProps> = ({ trip }) => {
 
     if (error?.error) {
       trigger(error.message, ToastType.Error);
+      return;
     }
 
     trigger("Itinerary created successfully", ToastType.Success);
