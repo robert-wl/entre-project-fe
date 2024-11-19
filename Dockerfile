@@ -16,10 +16,11 @@ WORKDIR /app
 
 COPY --from=builder /app/package*.json ./
 RUN npm install --only=production
+
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/next.config.mjs ./
 
 EXPOSE 3000
 
-CMD ["node", ".next/standalone/server.js"]
+CMD ["npm", "start"]
