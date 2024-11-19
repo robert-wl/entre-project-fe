@@ -4,6 +4,7 @@ import { BackendResponse } from "@/models/backend/backend.response";
 
 export default abstract class BaseService {
   private static BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+  private static BACKEND_DOCKER_URL = process.env.NEXT_PUBLIC_BACKEND_DOCKER_URL;
   private static axiosInstance: AxiosInstance;
 
   private static get axios() {
@@ -66,7 +67,15 @@ export default abstract class BaseService {
         await injectServerToken(config);
       }
 
-      config.baseURL = this.BACKEND_URL;
+      if (process.env.NEXT_PUBLIC_IS_CONTAINER) {
+        if (typeof window !== "undefined") {
+          config.baseURL = this.BACKEND_URL;
+        } else {
+          config.baseURL = this.BACKEND_DOCKER_URL;
+        }
+      } else {
+        config.baseURL = this.BACKEND_URL;
+      }
 
       return config;
     });
