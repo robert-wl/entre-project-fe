@@ -15,7 +15,7 @@ const AlbumItem: FC<IProps> = ({ album }) => {
       <div className="w-full h-fit flex flex-col justify-between gap-2">
         <img
           src={album.albumDetail![0]?.imageUrl}
-          className="aspect-square"
+          className="aspect-square object-cover"
         />
         <p className="font-semibold px-3 py-1">{album.name}</p>
       </div>
