@@ -23,6 +23,10 @@ jobs:
       - name: Build docker image
         run: |
           docker build \
+          --build-arg NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }} \
+          --build-arg NEXT_PUBLIC_BACKEND_DOCKER_URL=${{ secrets.NEXT_PUBLIC_BACKEND_DOCKER_URL }} \
+          --build-arg NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} \
+          --build-arg NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
           -t yahkerobertkertasnya/splanngo-fe .
 
       - name: Push docker image
