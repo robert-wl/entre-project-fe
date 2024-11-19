@@ -27,7 +27,7 @@ const AlbumDetailCombobox: FC<IProps> = ({ albumDetail }) => {
   };
 
   const shareImage = async () => {
-    if (!navigator.share) {
+    if (navigator.share) {
       try {
         await navigator.share({
           title: albumDetail.name,

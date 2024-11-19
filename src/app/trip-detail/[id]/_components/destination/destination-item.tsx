@@ -42,7 +42,7 @@ const DestinationItem: FC<IProps> = ({ destination }) => {
   return (
     <div className="w-full h-32 flex bg-white rounded-lg shadow-lg gap-2">
       <img
-        className="max-w-lg w-2/5 h-full"
+        className="max-w-lg w-2/5 h-full object-cover"
         src={destination.imageUrl}
       />
       <div className="p-2 gap-4 w-full">

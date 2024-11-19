@@ -20,11 +20,13 @@ const ItineraryItemForm: FC<IProps> = ({ control, itineraryIndex, datestring }) 
       />
       <div className="flex gap-4">
         <Input
+          type="time"
           {...control.register(`itineraryDetail.${itineraryIndex}.itineraryItems.0.startHour`)}
           placeholder="Start Time"
           className="bg-white"
         />
         <Input
+          type="time"
           {...control.register(`itineraryDetail.${itineraryIndex}.itineraryItems.0.endHour`)}
           placeholder="End Time"
           className="bg-white"

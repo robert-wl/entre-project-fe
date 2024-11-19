@@ -17,6 +17,7 @@ const ItineraryItemCard: FC<IProps> = ({ control, detailIndex, itemIndex }) => {
       render={({ field }) => (
         <div className="flex gap-1 items-center">
           <Input
+            type="time"
             className="flex-1"
             {...control.register(`itineraryDetails.${detailIndex}.itineraryItems.${itemIndex}.startHour`)}
             placeholder="Start hour"
@@ -25,6 +26,7 @@ const ItineraryItemCard: FC<IProps> = ({ control, detailIndex, itemIndex }) => {
           <p>-</p>
 
           <Input
+            type="time"
             className="flex-1"
             {...control.register(`itineraryDetails.${detailIndex}.itineraryItems.${itemIndex}.endHour`)}
             placeholder="End hour"

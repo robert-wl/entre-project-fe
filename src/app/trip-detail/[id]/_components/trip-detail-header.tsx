@@ -9,19 +9,32 @@ import { useForm } from "react-hook-form";
 import { InviteTripMembersDTO, inviteTripMembersSchema } from "@/models/schema/trip/invite-trip-member-dto";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TripService from "@/services/trip-service";
+import useToast, { ToastType } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   trip: Trip;
 }
 
 const TripDetailHeader: FC<IProps> = ({ trip }) => {
+  const {trigger} = useToast();
+  const router = useRouter();
+
   const { register, handleSubmit, reset } = useForm<InviteTripMembersDTO>({
     resolver: zodResolver(inviteTripMembersSchema),
   });
 
   const inviteTripMembers = async (data: InviteTripMembersDTO) => {
-    await TripService.inviteTripMembers(data, trip!.id);
+    const [_, error] =  await TripService.inviteTripMembers(data, trip!.id);
+
+    if(error?.message) {
+      trigger(error.message, ToastType.Error);
+      return;
+    }
+
+    trigger("Invitation sent successfully", ToastType.Success);
     reset();
+    router.refresh();
   };
 
   return (
