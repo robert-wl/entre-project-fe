@@ -27,11 +27,26 @@ const AlbumDetailCombobox: FC<IProps> = ({ albumDetail }) => {
   };
 
   const shareImage = async () => {
-    await navigator.share({
-      title: albumDetail.name,
-      text: "Check out this image",
-      url: albumDetail.imageUrl,
-    });
+    if (!navigator.share) {
+      try {
+        await navigator.share({
+          title: albumDetail.name,
+          text: "Check out this image",
+          url: albumDetail.imageUrl,
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      try {
+        const shareText = `Check out this image: ${albumDetail.imageUrl}`;
+        await navigator.clipboard.writeText(shareText);
+        trigger("Link copied to clipboard!", ToastType.Success);
+      } catch (error) {
+        console.error("Failed to copy to clipboard:", error);
+        trigger("Failed to copy link. Please try again.", ToastType.Error);
+      }
+    }
   };
 
   return (
