@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { LoginDTO, loginSchema } from "@/models/schema/register/login.dto";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,11 @@ import Link from "next/link";
 import useToast, { ToastType } from "@/hooks/use-toast";
 
 const LoginForm: FC = () => {
-  const { register, handleSubmit } = useForm<LoginDTO>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginDTO>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -33,6 +37,17 @@ const LoginForm: FC = () => {
       trigger(response.error, ToastType.Error);
     }
   };
+
+  useEffect(() => {
+    if (errors) {
+      Object.keys(errors).forEach((key) => {
+        const error = errors[key as keyof typeof errors];
+        if (error?.message) {
+          trigger(error.message, ToastType.Error);
+        }
+      });
+    }
+  }, [errors]);
 
   return (
     <GradientLayout

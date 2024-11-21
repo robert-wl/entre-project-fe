@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Trip } from "@/models/trip";
 import { useForm } from "react-hook-form";
-import { InviteTripMembersDTO, inviteTripMembersSchema } from "@/models/schema/trip/invite-trip-member-dto";
+import { InviteTripMembersDTO, inviteTripMembersSchema } from "@/models/schema/trip/invite-trip-member.dto";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TripService from "@/services/trip-service";
 import useToast, { ToastType } from "@/hooks/use-toast";
@@ -17,7 +17,7 @@ interface IProps {
 }
 
 const TripDetailHeader: FC<IProps> = ({ trip }) => {
-  const {trigger} = useToast();
+  const { trigger } = useToast();
   const router = useRouter();
 
   const { register, handleSubmit, reset } = useForm<InviteTripMembersDTO>({
@@ -25,9 +25,9 @@ const TripDetailHeader: FC<IProps> = ({ trip }) => {
   });
 
   const inviteTripMembers = async (data: InviteTripMembersDTO) => {
-    const [_, error] =  await TripService.inviteTripMembers(data, trip!.id);
+    const [_, error] = await TripService.inviteTripMembers(data, trip!.id);
 
-    if(error?.message) {
+    if (error?.message) {
       trigger(error.message, ToastType.Error);
       return;
     }
