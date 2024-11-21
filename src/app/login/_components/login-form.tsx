@@ -63,7 +63,6 @@ const LoginForm: FC = () => {
             type="password"
             placeholder="Password"
           />
-          <p className="w-full max-w-xl text-xs underline text-gray-400">Forgot Password?</p>
           <Button
             type="submit"
             className="w-full max-w-xl py-6 rounded-3xl font-bold">
